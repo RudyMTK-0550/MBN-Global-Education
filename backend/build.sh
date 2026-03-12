@@ -8,7 +8,7 @@ python manage.py collectstatic --no-input
 python manage.py makemigrations api
 python manage.py migrate
 
-# Remplir la DB avec les données de test (seulement si vide)
+# Remplir la DB avec les donnees de test (seulement si vide)
 python -c "
 import django, os
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'mbn_backend.settings')
