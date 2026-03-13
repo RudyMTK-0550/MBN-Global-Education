@@ -83,6 +83,7 @@
 
 html {
   scroll-behavior: smooth;
+  overflow-x: hidden;
 }
 
 body {
@@ -93,6 +94,8 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   transition: background var(--transition), color var(--transition);
+  overflow-x: hidden;
+  -webkit-text-size-adjust: 100%;
 }
 
 img {
@@ -1519,6 +1522,7 @@ a:hover {
   display: grid;
   grid-template-columns: 360px 1fr;
   height: calc(100vh - var(--navbar-height));
+  height: calc(100dvh - var(--navbar-height));
   animation: fadeUp 0.5s ease;
 }
 
@@ -1816,11 +1820,14 @@ a:hover {
     left: 0;
     right: 0;
     bottom: 0;
+    height: calc(100vh - var(--navbar-height));
+    height: calc(100dvh - var(--navbar-height));
     background: var(--bg-secondary);
     flex-direction: column;
     padding: 24px;
     gap: 8px;
     z-index: 99;
+    overflow-y: auto;
   }
 
   .nav-links.open {
@@ -1977,6 +1984,7 @@ a:hover {
 .wa-page {
   display: flex;
   height: calc(100vh - 72px);
+  height: calc(100dvh - 72px);
   background: var(--bg-primary);
   overflow: hidden;
 }
@@ -2869,5 +2877,377 @@ a:hover {
 
   .todo-stats {
     grid-template-columns: 1fr 1fr;
+  }
+}
+
+/* ========================================
+   MOBILE RESPONSIVE ENHANCEMENTS
+======================================== */
+
+/* Tablet adjustments */
+@media (max-width: 1024px) {
+  .dashboard-hero {
+    padding: 0 24px;
+  }
+
+  .dashboard-search {
+    padding: 0 24px;
+  }
+
+  .dashboard-section {
+    padding: 0 24px;
+  }
+
+  .clubs-grid {
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  }
+}
+
+/* Mobile — main breakpoint */
+@media (max-width: 768px) {
+  /* Global mobile fixes */
+  .dashboard {
+    overflow-x: hidden;
+  }
+
+  /* Hero */
+  .dashboard-hero .hero-content p {
+    font-size: 14px;
+  }
+
+  /* Section headers */
+  .section-header h2 {
+    font-size: 20px;
+  }
+
+  /* Profile page — reduce banner & padding */
+  .profile-banner {
+    height: 140px;
+  }
+
+  .profile-content {
+    margin-top: -40px;
+    padding: 0 16px;
+  }
+
+  .profile-main {
+    padding: 24px 16px;
+  }
+
+  .profile-lg-avatar {
+    width: 90px;
+    height: 90px;
+  }
+
+  .profile-name-section h1 {
+    font-size: 22px;
+  }
+
+  .profile-details {
+    margin-bottom: 20px;
+  }
+
+  .detail-item {
+    font-size: 14px;
+  }
+
+  /* Sidebar cards */
+  .sidebar-card {
+    padding: 16px;
+  }
+
+  /* Modal — full screen on mobile */
+  .modal-overlay {
+    padding: 12px;
+  }
+
+  .modal {
+    padding: 24px 16px;
+    max-width: 100%;
+    max-height: 85vh;
+  }
+
+  .modal-header h2 {
+    font-size: 18px;
+  }
+
+  /* Event card */
+  .event-date {
+    min-width: 56px;
+    height: 56px;
+  }
+
+  .event-day {
+    font-size: 18px;
+  }
+
+  .event-info h4 {
+    font-size: 14px;
+  }
+
+  /* Notification container */
+  .notification-container {
+    right: 12px;
+    left: 12px;
+    top: 80px;
+  }
+
+  .notification {
+    padding: 12px 16px;
+    font-size: 13px;
+  }
+
+  /* WhatsApp input bar */
+  .wa-input-bar {
+    padding: 8px 10px;
+    gap: 6px;
+  }
+
+  .wa-text-form input {
+    padding: 8px 12px;
+    font-size: 14px;
+  }
+
+  .wa-send-btn,
+  .wa-mic-btn {
+    width: 38px;
+    height: 38px;
+  }
+
+  .wa-chat-header {
+    padding: 10px 12px;
+  }
+
+  .wa-messages {
+    padding: 12px;
+  }
+
+  .wa-sidebar-header {
+    padding: 12px 16px;
+  }
+
+  /* WhatsApp page height for mobile */
+  .wa-page {
+    height: calc(100vh - 72px);
+    height: calc(100dvh - 72px);
+  }
+
+  /* Landing features cards */
+  .feature-card {
+    padding: 16px 12px;
+  }
+
+  .feature-card h3 {
+    font-size: 13px;
+  }
+
+  .feature-card p {
+    font-size: 12px;
+  }
+
+  .feature-icon {
+    width: 40px;
+    height: 40px;
+  }
+
+  /* Campus tags wrap */
+  .campus-tags {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  /* Landing footer */
+  .landing-footer {
+    font-size: 12px;
+    padding: 10px;
+  }
+}
+
+/* Small phones (375px and below) */
+@media (max-width: 480px) {
+  .navbar {
+    padding: 0 12px;
+    gap: 8px;
+  }
+
+  .nav-logo-img {
+    width: 36px;
+    height: 36px;
+  }
+
+  .dashboard-hero {
+    height: 180px;
+    padding: 0 16px;
+  }
+
+  .dashboard-hero .hero-content h1 {
+    font-size: 20px;
+  }
+
+  .dashboard-hero .hero-content p {
+    font-size: 13px;
+  }
+
+  .dashboard-search {
+    padding: 0 16px;
+    margin-bottom: 24px;
+  }
+
+  .search-wrapper {
+    padding: 12px 16px;
+  }
+
+  .search-wrapper input {
+    font-size: 14px;
+  }
+
+  .dashboard-section {
+    padding: 0 16px;
+    margin-bottom: 32px;
+  }
+
+  .section-header h2 {
+    font-size: 18px;
+  }
+
+  .profiles-grid {
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    gap: 10px;
+  }
+
+  .profile-card {
+    padding: 16px 12px;
+  }
+
+  .profile-avatar {
+    width: 56px;
+    height: 56px;
+    margin-bottom: 10px;
+  }
+
+  .profile-card h4 {
+    font-size: 13px;
+  }
+
+  .club-card {
+    padding: 20px 16px;
+  }
+
+  .event-card {
+    padding: 16px;
+    gap: 12px;
+  }
+
+  /* Profile page small */
+  .profile-banner {
+    height: 120px;
+  }
+
+  .profile-content {
+    margin-top: -30px;
+    padding: 0 12px;
+  }
+
+  .profile-main {
+    padding: 20px 14px;
+  }
+
+  .profile-lg-avatar {
+    width: 76px;
+    height: 76px;
+  }
+
+  .profile-name-section h1 {
+    font-size: 20px;
+  }
+
+  .profile-role-badge {
+    font-size: 11px;
+    padding: 3px 10px;
+  }
+
+  /* Modal small */
+  .modal-overlay {
+    padding: 8px;
+  }
+
+  .modal {
+    padding: 20px 14px;
+  }
+
+  /* WhatsApp small */
+  .wa-conv-item {
+    padding: 10px 14px;
+  }
+
+  .wa-conv-avatar {
+    width: 42px;
+    height: 42px;
+  }
+
+  .wa-conv-name {
+    font-size: 14px;
+  }
+
+  .wa-conv-preview {
+    max-width: 140px;
+    font-size: 12px;
+  }
+
+  .wa-bubble {
+    max-width: 90%;
+  }
+
+  .wa-emoji-panel {
+    padding: 8px 10px;
+  }
+
+  .wa-emoji-btn {
+    font-size: 20px;
+    padding: 4px;
+  }
+
+  /* Todos small */
+  .todo-header-top h1 {
+    font-size: 22px;
+  }
+
+  .todo-stat {
+    padding: 12px;
+  }
+
+  .todo-stat-num {
+    font-size: 22px;
+  }
+
+  .todo-item {
+    padding: 14px 12px;
+    gap: 10px;
+  }
+
+  .todo-form-card {
+    padding: 16px;
+  }
+
+  /* Auth small */
+  .auth-header h1 {
+    font-size: 22px;
+  }
+
+  .auth-logo {
+    width: 56px;
+  }
+
+  /* Landing small */
+  .landing {
+    padding: 30px 16px 70px;
+  }
+
+  .landing-subtitle {
+    font-size: 14px;
+  }
+
+  .landing-logo-img {
+    width: 80px;
   }
 }
