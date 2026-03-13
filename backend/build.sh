@@ -2,6 +2,8 @@
 # Script de build pour Render.com
 set -o errexit
 
+# Upgrade pip et installer les dependances dans le venv actif
+pip install --upgrade pip
 pip install -r requirements.txt
 
 python manage.py collectstatic --no-input
