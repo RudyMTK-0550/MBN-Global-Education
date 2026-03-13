@@ -1,16 +1,15 @@
 #!/usr/bin/env bash
-# Script de build pour Render.com
 set -o errexit
 
-# Upgrade pip et installer les dependances dans le venv actif
-pip install --upgrade pip
-pip install -r requirements.txt
+# Installer dans le MEME Python qui lancera gunicorn
+python -m pip install --upgrade pip
+python -m pip install -r requirements.txt
 
 python manage.py collectstatic --no-input
 python manage.py makemigrations api
 python manage.py migrate
 
-# Remplir la DB avec les donnees de test (seulement si vide)
+# Seed si la base est vide
 python -c "
 import django, os
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'mbn_backend.settings')
