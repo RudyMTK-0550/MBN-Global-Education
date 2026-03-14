@@ -1,7 +1,8 @@
-import { useState } from 'react'
+import { useState, useRef } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { useAuth } from '../context/AuthContext'
 import { useTheme } from '../context/ThemeContext'
+import { usersAPI } from '../services/api'
 
 const ECOLES = [
   { value: '', label: 'Choisir une école' },
@@ -116,7 +117,7 @@ const NIVEAUX = [
 ]
 
 export default function Register() {
-  const { register } = useAuth()
+  const { register, updateUser } = useAuth()
   const { theme, toggleTheme } = useTheme()
   const navigate = useNavigate()
   const [form, setForm] = useState({
@@ -125,6 +126,28 @@ export default function Register() {
   })
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
+  const [photoFile, setPhotoFile] = useState(null)
+  const [photoPreview, setPhotoPreview] = useState(null)
+  const fileInputRef = useRef(null)
+
+  const handlePhotoSelect = (e) => {
+    const file = e.target.files?.[0]
+    if (!file) return
+    const allowed = ['image/jpeg', 'image/png', 'image/gif', 'image/webp']
+    if (!allowed.includes(file.type)) {
+      setError('Format photo non supporté. Utilisez JPG, PNG, GIF ou WebP')
+      return
+    }
+    if (file.size > 5 * 1024 * 1024) {
+      setError('La photo ne doit pas dépasser 5 MB')
+      return
+    }
+    setError('')
+    setPhotoFile(file)
+    const reader = new FileReader()
+    reader.onload = (ev) => setPhotoPreview(ev.target.result)
+    reader.readAsDataURL(file)
+  }
 
   const handleChange = (e) => {
     const { name, value } = e.target
@@ -141,6 +164,10 @@ export default function Register() {
     e.preventDefault()
     setError('')
 
+    if (!photoFile) {
+      setError('Une photo de profil est obligatoire')
+      return
+    }
     if (!form.nom || !form.prenom || !form.email || !form.password || !form.confirm) {
       setError('Tous les champs obligatoires doivent être remplis')
       return
@@ -157,6 +184,8 @@ export default function Register() {
     setLoading(true)
     try {
       await register(form)
+      const res = await usersAPI.uploadPhoto(photoFile)
+      updateUser(res.data.user)
       navigate('/accueil')
     } catch (err) {
       const data = err.response?.data
@@ -194,6 +223,29 @@ export default function Register() {
 
         <form onSubmit={handleSubmit} className="auth-form">
           {error && <div className="form-error">{error}</div>}
+
+          <div className="register-photo-upload" onClick={() => fileInputRef.current?.click()}>
+            <div className="register-photo-circle">
+              {photoPreview ? (
+                <img src={photoPreview} alt="Preview" />
+              ) : (
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+                  <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/>
+                  <circle cx="12" cy="13" r="4"/>
+                </svg>
+              )}
+            </div>
+            <span className="register-photo-label">
+              {photoPreview ? 'Changer la photo' : 'Ajouter une photo *'}
+            </span>
+            <input
+              ref={fileInputRef}
+              type="file"
+              accept="image/jpeg,image/png,image/gif,image/webp"
+              onChange={handlePhotoSelect}
+              style={{ display: 'none' }}
+            />
+          </div>
 
           <div className="form-row">
             <div className="form-group">

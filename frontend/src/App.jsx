@@ -10,6 +10,7 @@ import Dashboard from './pages/Dashboard'
 import Profile from './pages/Profile'
 import Messages from './pages/Messages'
 import Todos from './pages/Todos'
+import Clubs from './pages/Clubs'
 
 function PrivateRoute({ children }) {
   const { user, loading } = useAuth()
@@ -52,6 +53,7 @@ export default function App() {
         <Route path="/profil" element={<PrivateRoute><Profile /></PrivateRoute>} />
         <Route path="/messages" element={<PrivateRoute><Messages /></PrivateRoute>} />
         <Route path="/messages/:userId" element={<PrivateRoute><Messages /></PrivateRoute>} />
+        <Route path="/clubs" element={<PrivateRoute><Clubs /></PrivateRoute>} />
         <Route path="/todos" element={<PrivateRoute><Todos /></PrivateRoute>} />
       </Route>
       <Route path="*" element={<Navigate to="/" />} />

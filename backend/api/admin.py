@@ -24,7 +24,7 @@ class UserAdmin(BaseUserAdmin):
 
 @admin.register(Club)
 class ClubAdmin(admin.ModelAdmin):
-    list_display = ('nom', 'type', 'created_by', 'member_count', 'created_at')
+    list_display = ('nom', 'type', 'created_by', 'created_at')
     list_filter = ('type',)
 
 

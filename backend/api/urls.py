@@ -43,6 +43,7 @@ urlpatterns = [
     path('messages/conversations/', views.conversations, name='conversations'),
     path('messages/unread/count/', views.unread_count, name='unread-count'),
     path('messages/send/', views.send_message, name='send-message'),
+    path('messages/upload-file/', views.UploadMessageFileView.as_view(), name='upload-message-file'),
     path('messages/<int:pk>/delete/', views.delete_message, name='delete-message'),
     path('messages/<int:user_id>/', views.messages_with_user, name='messages-with-user'),
 

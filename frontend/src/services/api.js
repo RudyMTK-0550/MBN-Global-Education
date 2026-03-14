@@ -76,6 +76,13 @@ export const messagesAPI = {
   send: (data) => api.post('/messages/send/', data),
   delete: (id) => api.delete(`/messages/${id}/delete/`),
   unreadCount: () => api.get('/messages/unread/count/'),
+  uploadFile: (file) => {
+    const formData = new FormData()
+    formData.append('file', file)
+    return api.post('/messages/upload-file/', formData, {
+      headers: { 'Content-Type': 'multipart/form-data' }
+    })
+  },
 }
 
 export const todosAPI = {

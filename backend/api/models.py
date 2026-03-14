@@ -84,9 +84,6 @@ class Club(models.Model):
     def __str__(self):
         return self.nom
 
-    @property
-    def member_count(self):
-        return self.members.count()
 
 
 class ClubMember(models.Model):

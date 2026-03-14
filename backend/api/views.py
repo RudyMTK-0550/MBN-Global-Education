@@ -182,6 +182,54 @@ class UploadPhotoView(APIView):
         })
 
 
+# ─── UPLOAD FICHIER MESSAGE ──────────────────────────
+
+class UploadMessageFileView(APIView):
+    parser_classes = [MultiPartParser, FormParser]
+
+    def post(self, request):
+        file = request.FILES.get('file')
+        if not file:
+            return Response({'success': False, 'message': 'Aucun fichier envoyé'}, status=400)
+
+        allowed_types = [
+            'audio/webm', 'audio/ogg', 'audio/mpeg', 'audio/mp4', 'audio/wav', 'audio/x-m4a',
+            'application/pdf', 'application/msword',
+            'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+            'application/vnd.ms-excel',
+            'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+            'application/vnd.ms-powerpoint',
+            'application/vnd.openxmlformats-officedocument.presentationml.presentation',
+            'image/jpeg', 'image/png', 'image/gif', 'image/webp',
+            'application/zip', 'text/plain',
+        ]
+        if file.content_type not in allowed_types:
+            return Response({'success': False, 'message': 'Type de fichier non supporté'}, status=400)
+
+        if file.size > 10 * 1024 * 1024:
+            return Response({'success': False, 'message': 'Le fichier ne doit pas dépasser 10 MB'}, status=400)
+
+        upload_dir = os.path.join(settings.MEDIA_ROOT, 'messages')
+        os.makedirs(upload_dir, exist_ok=True)
+
+        ext = file.name.split('.')[-1].lower() if '.' in file.name else 'bin'
+        filename = f"{uuid.uuid4().hex}.{ext}"
+        filepath = os.path.join(upload_dir, filename)
+
+        with open(filepath, 'wb+') as f:
+            for chunk in file.chunks():
+                f.write(chunk)
+
+        file_url = f"{request.scheme}://{request.get_host()}/media/messages/{filename}"
+
+        return Response({
+            'success': True,
+            'file_url': file_url,
+            'file_name': file.name,
+            'file_size': file.size,
+        })
+
+
 # ─── CLUBS ───────────────────────────────────────────
 
 class ClubListView(generics.ListAPIView):

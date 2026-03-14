@@ -15,8 +15,14 @@ export default function Messages() {
   const [recording, setRecording] = useState(false)
   const [recordTime, setRecordTime] = useState(0)
   const [showEmoji, setShowEmoji] = useState(false)
+  const [uploading, setUploading] = useState(false)
   const messagesEndRef = useRef(null)
   const timerRef = useRef(null)
+  const mediaRecorderRef = useRef(null)
+  const audioChunksRef = useRef([])
+  const streamRef = useRef(null)
+  const fileInputRef = useRef(null)
+  const playingAudioRef = useRef(null)
 
   const emojis = ['😀','😂','😍','🥺','😎','🙏','👍','❤️','🔥','✨','😭','🤣','😊','💪','🎉','👏','💯','🙌','😢','🤔']
 
@@ -62,47 +68,118 @@ export default function Messages() {
     } catch {}
   }
 
-  const startRecording = () => {
-    setRecording(true)
-    setRecordTime(0)
-    timerRef.current = setInterval(() => setRecordTime(t => t + 1), 1000)
+  // Cleanup on unmount
+  useEffect(() => {
+    return () => {
+      clearInterval(timerRef.current)
+      streamRef.current?.getTracks().forEach(t => t.stop())
+    }
+  }, [])
+
+  const startRecording = async () => {
+    try {
+      const stream = await navigator.mediaDevices.getUserMedia({ audio: true })
+      streamRef.current = stream
+      const mimeType = MediaRecorder.isTypeSupported('audio/webm;codecs=opus')
+        ? 'audio/webm;codecs=opus'
+        : MediaRecorder.isTypeSupported('audio/webm') ? 'audio/webm' : 'audio/mp4'
+      const mediaRecorder = new MediaRecorder(stream, { mimeType })
+      mediaRecorderRef.current = mediaRecorder
+      audioChunksRef.current = []
+
+      mediaRecorder.ondataavailable = (e) => {
+        if (e.data.size > 0) audioChunksRef.current.push(e.data)
+      }
+
+      mediaRecorder.start()
+      setRecording(true)
+      setRecordTime(0)
+      timerRef.current = setInterval(() => setRecordTime(t => t + 1), 1000)
+    } catch {
+      alert('Impossible d\'accéder au microphone. Vérifiez les permissions.')
+    }
   }
 
   const stopRecording = async () => {
+    if (!mediaRecorderRef.current || !userId) return
     setRecording(false)
     clearInterval(timerRef.current)
-    if (!userId) return
+    const duration = recordTime
+
+    const blob = await new Promise((resolve) => {
+      mediaRecorderRef.current.onstop = () => {
+        const mime = mediaRecorderRef.current.mimeType || 'audio/webm'
+        resolve(new Blob(audioChunksRef.current, { type: mime }))
+      }
+      mediaRecorderRef.current.stop()
+    })
+
+    streamRef.current?.getTracks().forEach(t => t.stop())
+
+    const ext = blob.type.includes('mp4') ? 'm4a' : 'webm'
+    const file = new File([blob], `vocal_${Date.now()}.${ext}`, { type: blob.type })
+
+    setUploading(true)
     try {
+      const uploadRes = await messagesAPI.uploadFile(file)
       await messagesAPI.send({
         receiver_id: parseInt(userId),
         content: '',
         message_type: 'voice',
-        voice_duration: recordTime,
+        voice_duration: duration,
+        file_url: uploadRes.data.file_url,
+        file_name: uploadRes.data.file_name,
+        file_size: uploadRes.data.file_size,
       })
       setRecordTime(0)
       loadMessages(userId)
-    } catch {}
+    } catch {
+      alert('Erreur lors de l\'envoi du vocal')
+    } finally {
+      setUploading(false)
+    }
   }
 
-  const handleFileUpload = async () => {
-    if (!userId) return
-    const fakeFiles = [
-      { name: 'Cours_Informatique.pdf', size: 245000 },
-      { name: 'Projet_Final.docx', size: 180000 },
-      { name: 'Notes_Examen.pdf', size: 95000 },
-    ]
-    const file = fakeFiles[Math.floor(Math.random() * fakeFiles.length)]
+  const playVoice = (url) => {
+    if (playingAudioRef.current) {
+      playingAudioRef.current.pause()
+      playingAudioRef.current = null
+    }
+    if (url && url !== '#') {
+      const audio = new Audio(url)
+      playingAudioRef.current = audio
+      audio.play().catch(() => {})
+      audio.onended = () => { playingAudioRef.current = null }
+    }
+  }
+
+  const handleFileSelect = async (e) => {
+    const file = e.target.files?.[0]
+    if (!file || !userId) return
+    e.target.value = ''
+
+    if (file.size > 10 * 1024 * 1024) {
+      alert('Le fichier ne doit pas dépasser 10 MB')
+      return
+    }
+
+    setUploading(true)
     try {
+      const uploadRes = await messagesAPI.uploadFile(file)
       await messagesAPI.send({
         receiver_id: parseInt(userId),
         content: '',
         message_type: 'file',
-        file_name: file.name,
-        file_url: '#',
-        file_size: file.size,
+        file_name: uploadRes.data.file_name,
+        file_url: uploadRes.data.file_url,
+        file_size: uploadRes.data.file_size,
       })
       loadMessages(userId)
-    } catch {}
+    } catch {
+      alert('Erreur lors de l\'envoi du fichier')
+    } finally {
+      setUploading(false)
+    }
   }
 
   const formatTime = (s) => `${Math.floor(s / 60)}:${String(s % 60).padStart(2, '0')}`
@@ -189,7 +266,7 @@ export default function Messages() {
                 <div key={msg.id} className={`wa-bubble ${msg.sender === user.id ? 'wa-sent' : 'wa-received'}`}>
                   {msg.message_type === 'voice' ? (
                     <div className="wa-voice-msg">
-                      <button className="wa-play-btn">
+                      <button className="wa-play-btn" onClick={() => playVoice(msg.file_url)}>
                         <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>
                       </button>
                       <div className="wa-voice-wave">
@@ -208,9 +285,9 @@ export default function Messages() {
                         <span className="wa-file-name">{msg.file_name}</span>
                         <span className="wa-file-size">{formatSize(msg.file_size)}</span>
                       </div>
-                      <button className="wa-download-btn">
+                      <a href={msg.file_url} target="_blank" rel="noopener noreferrer" download={msg.file_name} className="wa-download-btn">
                         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-                      </button>
+                      </a>
                     </div>
                   ) : (
                     <p>{msg.content}</p>
@@ -238,9 +315,16 @@ export default function Messages() {
               <button className="wa-icon-btn" onClick={() => setShowEmoji(!showEmoji)} title="Emoji">
                 <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg>
               </button>
-              <button className="wa-icon-btn" onClick={handleFileUpload} title="Fichier">
+              <button className="wa-icon-btn" onClick={() => fileInputRef.current?.click()} title="Fichier">
                 <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48"/></svg>
               </button>
+              <input
+                ref={fileInputRef}
+                type="file"
+                style={{ display: 'none' }}
+                onChange={handleFileSelect}
+                accept=".pdf,.doc,.docx,.xls,.xlsx,.ppt,.pptx,.txt,.zip,.jpg,.jpeg,.png,.gif,.webp"
+              />
 
               {recording ? (
                 <div className="wa-recording">

@@ -2755,6 +2755,7 @@ a:hover {
   justify-content: space-between;
   gap: 10px;
   margin-bottom: 4px;
+  flex-wrap: wrap;
 }
 
 .todo-title {
@@ -3249,5 +3250,598 @@ a:hover {
 
   .landing-logo-img {
     width: 80px;
+  }
+}
+
+/* ========================================
+   CLUBS PAGE
+======================================== */
+
+.clubs-page {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 32px 20px;
+}
+
+.clubs-page-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 28px;
+}
+
+.clubs-page-header h1 {
+  font-size: 28px;
+  font-weight: 800;
+  color: var(--text-primary);
+  margin: 0;
+}
+
+.clubs-page-subtitle {
+  font-size: 14px;
+  color: var(--text-secondary);
+  margin-top: 4px;
+}
+
+/* Mes clubs - scroll horizontal */
+.clubs-my-section {
+  margin-bottom: 24px;
+}
+
+.clubs-section-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 12px;
+}
+
+.clubs-section-title svg {
+  color: var(--accent);
+}
+
+.clubs-my-scroll {
+  display: flex;
+  gap: 10px;
+  overflow-x: auto;
+  padding-bottom: 8px;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+
+.clubs-my-scroll::-webkit-scrollbar {
+  display: none;
+}
+
+.clubs-my-chip {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 16px;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-full);
+  white-space: nowrap;
+  cursor: pointer;
+  transition: all var(--transition);
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text-primary);
+}
+
+.clubs-my-chip:hover {
+  border-color: var(--accent);
+  background: var(--accent-glow);
+}
+
+.clubs-my-chip-icon {
+  font-size: 16px;
+}
+
+/* Filtres */
+.clubs-filter-bar {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 24px;
+}
+
+.clubs-filter-chip {
+  padding: 8px 16px;
+  border-radius: var(--radius-full);
+  border: 1px solid var(--border);
+  background: var(--bg-secondary);
+  color: var(--text-secondary);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--transition);
+}
+
+.clubs-filter-chip:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.clubs-filter-chip.active {
+  background: var(--accent);
+  color: #fff;
+  border-color: var(--accent);
+}
+
+/* Grille clubs page */
+.clubs-grid-page {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 16px;
+}
+
+.club-card-top {
+  cursor: pointer;
+  flex: 1;
+}
+
+.club-card-top p {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* Empty state */
+.clubs-empty {
+  grid-column: 1 / -1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  padding: 60px 20px;
+  color: var(--text-muted);
+  text-align: center;
+}
+
+.clubs-empty svg {
+  opacity: 0.4;
+}
+
+/* Club create form */
+.club-create-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.club-create-form textarea {
+  width: 100%;
+  padding: 12px 14px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-input);
+  background: var(--bg-input);
+  color: var(--text-primary);
+  font-size: 14px;
+  font-family: inherit;
+  resize: vertical;
+  min-height: 80px;
+  outline: none;
+  transition: border-color var(--transition);
+}
+
+.club-create-form textarea:focus {
+  border-color: var(--accent);
+}
+
+/* Club detail modal */
+.club-detail-modal {
+  max-width: 520px;
+}
+
+.club-detail-body {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.club-detail-meta {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.club-detail-desc {
+  font-size: 15px;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+.club-detail-creator {
+  font-size: 13px;
+  color: var(--text-muted);
+}
+
+/* Members section in detail */
+.club-members-section {
+  margin-top: 8px;
+  border-top: 1px solid var(--border);
+  padding-top: 16px;
+}
+
+.club-members-section h3 {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 12px;
+}
+
+.club-member-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-height: 240px;
+  overflow-y: auto;
+}
+
+.club-member-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 0;
+}
+
+.club-member-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.club-member-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.club-member-name {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.club-member-role {
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+/* Clubs page responsive */
+@media (max-width: 768px) {
+  .clubs-page {
+    padding: 24px 16px;
+  }
+
+  .clubs-page-header {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .clubs-page-header .btn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .clubs-page-header h1 {
+    font-size: 24px;
+  }
+
+  .clubs-grid-page {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .club-detail-modal {
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .clubs-page-header h1 {
+    font-size: 22px;
+  }
+
+  .clubs-filter-chip {
+    padding: 6px 12px;
+    font-size: 12px;
+  }
+
+  .clubs-my-chip {
+    padding: 8px 12px;
+    font-size: 13px;
+  }
+}
+
+/* ========================================
+   2026 POLISHED MOBILE — PERFECT ALIGNMENT
+======================================== */
+
+/* --- Registration photo upload circle --- */
+.register-photo-upload {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  margin-bottom: 8px;
+}
+
+.register-photo-circle {
+  width: 96px;
+  height: 96px;
+  border-radius: 50%;
+  border: 2.5px dashed var(--border-input);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  background: var(--bg-input);
+  transition: border-color var(--transition), background var(--transition);
+}
+
+.register-photo-upload:hover .register-photo-circle {
+  border-color: var(--accent);
+  background: var(--accent-light);
+}
+
+.register-photo-circle img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.register-photo-circle svg {
+  color: var(--text-muted);
+}
+
+.register-photo-label {
+  font-size: 13px;
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+/* --- Theme toggle full-width in hamburger menu --- */
+@media (max-width: 768px) {
+  .theme-toggle {
+    width: 100%;
+    height: 48px;
+    border-radius: var(--radius-md);
+    margin-left: 0;
+    justify-content: center;
+    gap: 10px;
+    background: var(--bg-input);
+    font-size: 14px;
+  }
+}
+
+/* --- Dashboard hero center on mobile --- */
+@media (max-width: 768px) {
+  .dashboard-hero {
+    justify-content: center;
+    text-align: center;
+    padding: 0 20px;
+  }
+
+  .dashboard-hero .hero-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .dashboard-hero {
+    height: 170px;
+    padding: 0 16px;
+  }
+
+  .dashboard-hero .hero-content h1 {
+    font-size: 19px;
+    line-height: 1.3;
+  }
+
+  .dashboard-hero .hero-content p {
+    font-size: 12px;
+  }
+}
+
+/* --- Profile cards: text truncation --- */
+.profile-card h4 {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 100%;
+}
+
+.profile-role,
+.profile-campus {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 100%;
+}
+
+/* --- Event card: margin on wrapped button --- */
+@media (max-width: 768px) {
+  .event-card {
+    align-items: stretch;
+  }
+
+  .event-info {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .event-info h4 {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .event-card .btn {
+    margin-top: 4px;
+  }
+}
+
+/* --- Profile avatar overlay always visible on mobile (no hover on touch) --- */
+@media (max-width: 768px) {
+  .profile-avatar-overlay {
+    opacity: 0.7;
+  }
+
+  .profile-avatar-wrap:active .profile-avatar-overlay {
+    opacity: 1;
+  }
+}
+
+/* --- Auth card padding reduction on small screens --- */
+@media (max-width: 480px) {
+  .auth-card {
+    padding: 24px 16px;
+  }
+
+  .auth-card-wide {
+    max-width: 100%;
+  }
+
+  .auth-header {
+    margin-bottom: 20px;
+    gap: 8px;
+  }
+
+  .auth-header h1 {
+    font-size: 20px;
+  }
+
+  .auth-subtitle {
+    font-size: 13px;
+  }
+
+  .auth-form {
+    gap: 12px;
+  }
+
+  .form-group label {
+    font-size: 13px;
+  }
+
+  .form-group input,
+  .form-group select {
+    padding: 10px 12px;
+    font-size: 14px;
+  }
+
+  .register-photo-circle {
+    width: 80px;
+    height: 80px;
+  }
+
+  .register-photo-label {
+    font-size: 12px;
+  }
+}
+
+/* --- WhatsApp bubble responsive max-width --- */
+@media (max-width: 480px) {
+  .wa-bubble {
+    max-width: 92%;
+    padding: 8px 10px;
+    font-size: 14px;
+  }
+
+  .wa-bubble-content {
+    font-size: 14px;
+    line-height: 1.5;
+  }
+
+  .wa-voice-msg {
+    gap: 8px;
+    padding: 6px 8px;
+  }
+
+  .wa-file-msg {
+    gap: 8px;
+    padding: 8px 10px;
+  }
+
+  .wa-file-info span:first-child {
+    max-width: 120px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .wa-conv-preview {
+    max-width: 120px;
+  }
+
+  .wa-sidebar-header h2 {
+    font-size: 18px;
+  }
+}
+
+/* --- Global touch improvements --- */
+@media (max-width: 768px) {
+  /* Bigger touch targets */
+  .btn {
+    min-height: 44px;
+    font-size: 14px;
+  }
+
+  /* Smooth scrolling in containers */
+  .wa-messages,
+  .wa-conv-list,
+  .todo-list {
+    -webkit-overflow-scrolling: touch;
+  }
+
+  /* No text selection on interactive elements */
+  .nav-links a,
+  .wa-conv-item,
+  .wa-icon-btn,
+  .btn {
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  /* Form rows: always single column on mobile */
+  .form-row {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  /* Auth page background shapes: smaller */
+  .auth-bg-shape {
+    transform: scale(0.6);
+  }
+}
+
+/* --- Safe area insets for notched phones --- */
+@supports (padding-bottom: env(safe-area-inset-bottom)) {
+  .wa-input-bar {
+    padding-bottom: calc(8px + env(safe-area-inset-bottom));
+  }
+
+  .navbar {
+    padding-top: env(safe-area-inset-top);
+  }
+}
+
+/* --- Landing page responsive polish --- */
+@media (max-width: 480px) {
+  .landing-actions {
+    gap: 10px;
+  }
+
+  .landing-actions .btn {
+    padding: 12px 20px;
+    font-size: 14px;
   }
 }
