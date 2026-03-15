@@ -1,0 +1,1063 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>Rapport Final - MBN Global Education</title>
+<style>
+  @page {
+    size: A4;
+    margin: 2cm 2.5cm;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'Georgia', 'Times New Roman', serif;
+    font-size: 12pt;
+    line-height: 1.7;
+    color: #1a1a1a;
+    background: #fff;
+  }
+
+  /* ---- PAGE DE GARDE ---- */
+  .cover {
+    page-break-after: always;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    text-align: center;
+    padding: 3cm 2cm;
+  }
+  .cover-logo {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #046bd2, #0391f5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-size: 36pt;
+    font-weight: bold;
+    font-family: Arial, sans-serif;
+    margin-bottom: 30px;
+    box-shadow: 0 8px 30px rgba(4,107,210,0.3);
+  }
+  .cover h1 {
+    font-size: 28pt;
+    color: #046bd2;
+    margin-bottom: 8px;
+    letter-spacing: 1px;
+  }
+  .cover h2 {
+    font-size: 16pt;
+    color: #333;
+    font-weight: normal;
+    margin-bottom: 50px;
+  }
+  .cover .subtitle {
+    font-size: 14pt;
+    color: #555;
+    margin-bottom: 5px;
+  }
+  .cover-line {
+    width: 60%;
+    height: 3px;
+    background: linear-gradient(to right, transparent, #046bd2, transparent);
+    margin: 30px auto;
+  }
+  .cover-info {
+    margin-top: 20px;
+    font-size: 12pt;
+    color: #444;
+    line-height: 2;
+  }
+  .cover-info strong { color: #1a1a1a; }
+  .cover-footer {
+    margin-top: auto;
+    font-size: 11pt;
+    color: #888;
+    padding-top: 40px;
+  }
+
+  /* ---- SOMMAIRE ---- */
+  .toc {
+    page-break-after: always;
+    padding: 2cm 0;
+  }
+  .toc h2 {
+    font-size: 22pt;
+    color: #046bd2;
+    text-align: center;
+    margin-bottom: 40px;
+    padding-bottom: 10px;
+    border-bottom: 3px solid #046bd2;
+  }
+  .toc-list {
+    list-style: none;
+    padding: 0;
+  }
+  .toc-list li {
+    margin-bottom: 6px;
+    font-size: 12pt;
+  }
+  .toc-list li a {
+    text-decoration: none;
+    color: #1a1a1a;
+    display: flex;
+    align-items: baseline;
+  }
+  .toc-list li a:hover { color: #046bd2; }
+  .toc-num {
+    font-weight: bold;
+    color: #046bd2;
+    min-width: 40px;
+    font-size: 13pt;
+  }
+  .toc-title { flex: 1; }
+  .toc-dots {
+    flex: 1;
+    border-bottom: 1px dotted #aaa;
+    margin: 0 8px;
+    min-width: 40px;
+  }
+  .toc-page {
+    font-weight: bold;
+    color: #046bd2;
+    min-width: 25px;
+    text-align: right;
+  }
+  .toc-sub {
+    padding-left: 40px;
+  }
+  .toc-sub .toc-num {
+    font-size: 11pt;
+    color: #555;
+  }
+
+  /* ---- CONTENU ---- */
+  .page {
+    page-break-before: always;
+  }
+  h2.section-title {
+    font-size: 20pt;
+    color: #046bd2;
+    border-bottom: 3px solid #046bd2;
+    padding-bottom: 8px;
+    margin-bottom: 25px;
+    margin-top: 10px;
+  }
+  h3 {
+    font-size: 14pt;
+    color: #046bd2;
+    margin: 25px 0 12px 0;
+  }
+  h4 {
+    font-size: 12pt;
+    color: #333;
+    margin: 18px 0 8px 0;
+  }
+  p {
+    text-align: justify;
+    margin-bottom: 12px;
+  }
+  ul, ol {
+    margin: 10px 0 15px 25px;
+  }
+  li {
+    margin-bottom: 5px;
+  }
+
+  /* Tables */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 15px 0 20px 0;
+    font-size: 10.5pt;
+  }
+  th {
+    background: #046bd2;
+    color: white;
+    padding: 10px 12px;
+    text-align: left;
+    font-weight: bold;
+  }
+  td {
+    padding: 8px 12px;
+    border-bottom: 1px solid #ddd;
+  }
+  tr:nth-child(even) td {
+    background: #f5f8fc;
+  }
+  tr:hover td {
+    background: #e8f0fe;
+  }
+
+  /* Code blocks */
+  .code-block {
+    background: #1e293b;
+    color: #e2e8f0;
+    padding: 15px 20px;
+    border-radius: 8px;
+    font-family: 'Courier New', monospace;
+    font-size: 9.5pt;
+    line-height: 1.6;
+    margin: 12px 0 18px 0;
+    overflow-x: auto;
+    white-space: pre;
+  }
+  .code-block .comment { color: #64748b; }
+  .code-block .keyword { color: #7dd3fc; }
+  .code-block .string { color: #86efac; }
+  .code-block .func { color: #fbbf24; }
+
+  /* Schema boxes */
+  .schema-box {
+    background: #f8fafc;
+    border: 2px solid #046bd2;
+    border-radius: 10px;
+    padding: 20px;
+    margin: 15px 0;
+    font-family: 'Courier New', monospace;
+    font-size: 10pt;
+    line-height: 1.5;
+    white-space: pre;
+  }
+
+  /* Info box */
+  .info-box {
+    background: #eff6ff;
+    border-left: 4px solid #046bd2;
+    padding: 14px 18px;
+    margin: 15px 0;
+    border-radius: 0 8px 8px 0;
+  }
+  .info-box strong {
+    color: #046bd2;
+  }
+
+  /* Highlight */
+  .highlight {
+    background: #fef3c7;
+    padding: 2px 6px;
+    border-radius: 3px;
+    font-weight: bold;
+  }
+  .blue { color: #046bd2; }
+  .bold { font-weight: bold; }
+
+  /* Figure */
+  .figure {
+    text-align: center;
+    margin: 20px 0;
+  }
+  .figure-caption {
+    font-size: 10pt;
+    color: #666;
+    font-style: italic;
+    margin-top: 8px;
+  }
+
+  /* Footer */
+  .page-footer {
+    text-align: center;
+    font-size: 9pt;
+    color: #999;
+    padding-top: 30px;
+    margin-top: 40px;
+    border-top: 1px solid #eee;
+  }
+</style>
+</head>
+<body>
+
+<!-- ================================================================ -->
+<!-- PAGE DE GARDE -->
+<!-- ================================================================ -->
+<div class="cover">
+  <div class="cover-logo">MBN</div>
+  <h1>MBN Global Education</h1>
+  <h2>Plateforme Web de Communication pour la Communaut&eacute; &Eacute;ducative</h2>
+
+  <div class="cover-line"></div>
+
+  <p class="subtitle"><strong>RAPPORT FINAL DE PROJET</strong></p>
+  <p class="subtitle">Rapport N&deg;2</p>
+
+  <div class="cover-line"></div>
+
+  <div class="cover-info">
+    <strong>Chef de projet :</strong> MOUTAKALA Degr&acirc;ce Rudy (Backend &amp; Frontend)<br>
+    <strong>Chef de projet adjoint :</strong> Pougom Nitcheu Arlene Manuella (Backend)<br><br>
+    <strong>&Eacute;quipe de d&eacute;veloppement :</strong><br>
+    Amakana Dolo &mdash; CSS &amp; JavaScript (Frontend)<br>
+    KONAT&Eacute; Haby &mdash; Design &amp; Maquettes (Figma)<br>
+    EKON Jean Philippe &mdash; Backend<br>
+    Claude Ketsia Tombert &mdash; CSS &amp; JavaScript (Frontend)<br>
+    Tchos Dongmo Marie Hauswald &mdash; CSS &amp; JavaScript (Frontend)<br><br>
+    <strong>Encadrant acad&eacute;mique :</strong> Mr. MOMO<br>
+    <strong>Directeur :</strong> Mr. Ren&eacute; MBOUSSI<br><br>
+    <strong>Campus :</strong> Lyon<br>
+    <strong>Ann&eacute;e universitaire :</strong> 2025 / 2026
+  </div>
+
+  <div class="cover-footer">
+    MBN Global Education &mdash; Groupe MBN &mdash; 2026
+  </div>
+</div>
+
+<!-- ================================================================ -->
+<!-- SOMMAIRE -->
+<!-- ================================================================ -->
+<div class="toc" id="sommaire">
+  <h2>Sommaire</h2>
+  <ol class="toc-list">
+    <li><a href="#intro"><span class="toc-num">1</span><span class="toc-title">Introduction</span><span class="toc-dots"></span><span class="toc-page">3</span></a></li>
+    <li class="toc-sub"><a href="#equipe"><span class="toc-num">1.1</span><span class="toc-title">&Eacute;quipe du Projet</span><span class="toc-dots"></span><span class="toc-page">3</span></a></li>
+    <li><a href="#rappel"><span class="toc-num">2</span><span class="toc-title">Rappel du Rapport N&deg;1 et &Eacute;volution</span><span class="toc-dots"></span><span class="toc-page">4</span></a></li>
+    <li><a href="#objectifs"><span class="toc-num">3</span><span class="toc-title">Objectifs du Projet</span><span class="toc-dots"></span><span class="toc-page">5</span></a></li>
+    <li><a href="#archi"><span class="toc-num">4</span><span class="toc-title">Architecture Technique</span><span class="toc-dots"></span><span class="toc-page">6</span></a></li>
+    <li class="toc-sub"><a href="#archi-gen"><span class="toc-num">4.1</span><span class="toc-title">Architecture g&eacute;n&eacute;rale</span><span class="toc-dots"></span><span class="toc-page">6</span></a></li>
+    <li class="toc-sub"><a href="#archi-stack"><span class="toc-num">4.2</span><span class="toc-title">Stack technologique</span><span class="toc-dots"></span><span class="toc-page">6</span></a></li>
+    <li><a href="#backend"><span class="toc-num">5</span><span class="toc-title">Backend &mdash; Django REST Framework</span><span class="toc-dots"></span><span class="toc-page">7</span></a></li>
+    <li class="toc-sub"><a href="#backend-django"><span class="toc-num">5.1</span><span class="toc-title">Pourquoi Django ?</span><span class="toc-dots"></span><span class="toc-page">7</span></a></li>
+    <li class="toc-sub"><a href="#backend-api"><span class="toc-num">5.2</span><span class="toc-title">API REST &mdash; Endpoints</span><span class="toc-dots"></span><span class="toc-page">8</span></a></li>
+    <li class="toc-sub"><a href="#backend-auth"><span class="toc-num">5.3</span><span class="toc-title">Authentification JWT</span><span class="toc-dots"></span><span class="toc-page">9</span></a></li>
+    <li><a href="#bdd"><span class="toc-num">6</span><span class="toc-title">Base de Donn&eacute;es</span><span class="toc-dots"></span><span class="toc-page">10</span></a></li>
+    <li class="toc-sub"><a href="#bdd-modeles"><span class="toc-num">6.1</span><span class="toc-title">Mod&egrave;les de donn&eacute;es</span><span class="toc-dots"></span><span class="toc-page">10</span></a></li>
+    <li class="toc-sub"><a href="#bdd-relations"><span class="toc-num">6.2</span><span class="toc-title">Relations entre les tables</span><span class="toc-dots"></span><span class="toc-page">12</span></a></li>
+    <li><a href="#frontend"><span class="toc-num">7</span><span class="toc-title">Frontend &mdash; React</span><span class="toc-dots"></span><span class="toc-page">13</span></a></li>
+    <li class="toc-sub"><a href="#frontend-react"><span class="toc-num">7.1</span><span class="toc-title">Pourquoi React ?</span><span class="toc-dots"></span><span class="toc-page">13</span></a></li>
+    <li class="toc-sub"><a href="#frontend-pages"><span class="toc-num">7.2</span><span class="toc-title">Structure des pages</span><span class="toc-dots"></span><span class="toc-page">14</span></a></li>
+    <li class="toc-sub"><a href="#frontend-concepts"><span class="toc-num">7.3</span><span class="toc-title">Concepts React utilis&eacute;s</span><span class="toc-dots"></span><span class="toc-page">14</span></a></li>
+    <li><a href="#fonctionnalites"><span class="toc-num">8</span><span class="toc-title">Fonctionnalit&eacute;s de l'Application</span><span class="toc-dots"></span><span class="toc-page">15</span></a></li>
+    <li class="toc-sub"><a href="#func-auth"><span class="toc-num">8.1</span><span class="toc-title">Inscription et connexion</span><span class="toc-dots"></span><span class="toc-page">15</span></a></li>
+    <li class="toc-sub"><a href="#func-profil"><span class="toc-num">8.2</span><span class="toc-title">Profil utilisateur</span><span class="toc-dots"></span><span class="toc-page">15</span></a></li>
+    <li class="toc-sub"><a href="#func-clubs"><span class="toc-num">8.3</span><span class="toc-title">Clubs</span><span class="toc-dots"></span><span class="toc-page">16</span></a></li>
+    <li class="toc-sub"><a href="#func-events"><span class="toc-num">8.4</span><span class="toc-title">&Eacute;v&eacute;nements</span><span class="toc-dots"></span><span class="toc-page">16</span></a></li>
+    <li class="toc-sub"><a href="#func-msg"><span class="toc-num">8.5</span><span class="toc-title">Messagerie (style WhatsApp)</span><span class="toc-dots"></span><span class="toc-page">16</span></a></li>
+    <li class="toc-sub"><a href="#func-todo"><span class="toc-num">8.6</span><span class="toc-title">Todo List</span><span class="toc-dots"></span><span class="toc-page">17</span></a></li>
+    <li class="toc-sub"><a href="#func-theme"><span class="toc-num">8.7</span><span class="toc-title">Mode sombre / clair</span><span class="toc-dots"></span><span class="toc-page">17</span></a></li>
+    <li><a href="#design"><span class="toc-num">9</span><span class="toc-title">Design et Interface</span><span class="toc-dots"></span><span class="toc-page">18</span></a></li>
+    <li><a href="#securite"><span class="toc-num">10</span><span class="toc-title">S&eacute;curit&eacute;</span><span class="toc-dots"></span><span class="toc-page">19</span></a></li>
+    <li><a href="#deploiement"><span class="toc-num">11</span><span class="toc-title">D&eacute;ploiement</span><span class="toc-dots"></span><span class="toc-page">20</span></a></li>
+    <li><a href="#conclusion"><span class="toc-num">12</span><span class="toc-title">Conclusion</span><span class="toc-dots"></span><span class="toc-page">21</span></a></li>
+  </ol>
+</div>
+
+<!-- ================================================================ -->
+<!-- 1. INTRODUCTION -->
+<!-- ================================================================ -->
+<div class="page" id="intro">
+  <h2 class="section-title">1. Introduction</h2>
+
+  <p>Dans le cadre de notre projet d'&eacute;tude au sein du groupe <strong>MBN Global Education</strong>, nous avons entrepris la conception et le d&eacute;veloppement d'une <strong>plateforme web compl&egrave;te</strong> destin&eacute;e aux &eacute;tudiants, enseignants et administrateurs de l'ensemble des campus du groupe MBN.</p>
+
+  <p>Ce projet s'inscrit dans une d&eacute;marche de modernisation des outils de communication internes &agrave; l'&eacute;tablissement. L'id&eacute;e est de proposer un <strong>r&eacute;seau social &eacute;ducatif</strong> qui centralise les &eacute;changes, les &eacute;v&eacute;nements, les clubs et l'organisation du travail personnel au sein d'une seule application.</p>
+
+  <p>Ce rapport final pr&eacute;sente l'&eacute;tat d'avancement complet du projet, les choix technologiques adopt&eacute;s, l'architecture technique d&eacute;taill&eacute;e, les fonctionnalit&eacute;s d&eacute;velopp&eacute;es ainsi que la strat&eacute;gie de d&eacute;ploiement mise en place pour rendre l'application accessible &agrave; tous les utilisateurs du groupe MBN.</p>
+
+  <div class="info-box">
+    <strong>Note :</strong> Ce rapport fait suite au Rapport N&deg;1 qui pr&eacute;sentait les maquettes initiales et le prototype en HTML/CSS/JavaScript. Depuis, le projet a &eacute;t&eacute; enti&egrave;rement repens&eacute; et reconstruit avec des technologies professionnelles (React + Django).
+  </div>
+
+  <h3 id="equipe">1.1 &Eacute;quipe du Projet</h3>
+
+  <p>Ce projet a &eacute;t&eacute; r&eacute;alis&eacute; par une &eacute;quipe de <strong>7 membres</strong>, chacun apportant ses comp&eacute;tences sp&eacute;cifiques :</p>
+
+  <table>
+    <thead>
+      <tr><th>Membre</th><th>R&ocirc;le</th><th>Domaine d'intervention</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><strong>MOUTAKALA Degr&acirc;ce Rudy</strong></td><td>Chef de projet</td><td>Backend (Django) &amp; Frontend (React) &mdash; Architecture, d&eacute;veloppement complet, d&eacute;ploiement</td></tr>
+      <tr><td><strong>Pougom Nitcheu Arlene Manuella</strong></td><td>Chef de projet adjoint</td><td>Backend (Django) &mdash; API, base de donn&eacute;es</td></tr>
+      <tr><td><strong>EKON Jean Philippe</strong></td><td>D&eacute;veloppeur</td><td>Backend (Django) &mdash; Endpoints, logique m&eacute;tier</td></tr>
+      <tr><td><strong>Amakana Dolo</strong></td><td>D&eacute;veloppeur</td><td>CSS &amp; JavaScript &mdash; Int&eacute;gration frontend, styles</td></tr>
+      <tr><td><strong>Claude Ketsia Tombert</strong></td><td>D&eacute;veloppeur</td><td>CSS &amp; JavaScript &mdash; Int&eacute;gration frontend, composants</td></tr>
+      <tr><td><strong>Tchos Dongmo Marie Hauswald</strong></td><td>D&eacute;veloppeur</td><td>CSS &amp; JavaScript &mdash; Int&eacute;gration frontend, responsive</td></tr>
+      <tr><td><strong>KONAT&Eacute; Haby</strong></td><td>Designer UI/UX</td><td>Maquettes Figma &mdash; Design des interfaces, charte graphique</td></tr>
+    </tbody>
+  </table>
+
+  <p style="margin-top: 15px;">La r&eacute;partition des t&acirc;ches a permis une progression parall&egrave;le sur le backend et le frontend, tandis que les maquettes Figma servaient de r&eacute;f&eacute;rence visuelle pour l'ensemble de l'&eacute;quipe.</p>
+</div>
+
+<!-- ================================================================ -->
+<!-- 2. RAPPEL -->
+<!-- ================================================================ -->
+<div class="page" id="rappel">
+  <h2 class="section-title">2. Rappel du Rapport N&deg;1 et &Eacute;volution</h2>
+
+  <h3>2.1 Ce qui avait &eacute;t&eacute; r&eacute;alis&eacute; (Rapport N&deg;1)</h3>
+  <p>Lors du premier rapport, nous avions pr&eacute;sent&eacute; :</p>
+  <ul>
+    <li>Les <strong>maquettes Figma</strong> des interfaces principales (page de connexion, page d'identification)</li>
+    <li>Un <strong>premier prototype</strong> d&eacute;velopp&eacute; en HTML, CSS et JavaScript pur</li>
+    <li>La d&eacute;finition des <strong>objectifs</strong> du projet</li>
+    <li>Les raisons du choix initial de HTML/CSS/JavaScript</li>
+  </ul>
+
+  <h3>2.2 &Eacute;volution majeure : passage au Full-Stack</h3>
+  <p>Depuis le premier rapport, le projet a connu une <strong>refonte compl&egrave;te</strong>. Nous avons remplac&eacute; le prototype HTML/CSS/JS par une architecture professionnelle :</p>
+
+  <table>
+    <thead>
+      <tr><th>Aspect</th><th>Rapport N&deg;1</th><th>Rapport Final</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><strong>Frontend</strong></td><td>HTML + CSS + JavaScript</td><td>React 18 + Vite</td></tr>
+      <tr><td><strong>Backend</strong></td><td>Aucun (statique)</td><td>Django 5 + REST Framework</td></tr>
+      <tr><td><strong>Base de donn&eacute;es</strong></td><td>Aucune</td><td>SQLite (dev) / PostgreSQL (prod)</td></tr>
+      <tr><td><strong>Authentification</strong></td><td>Aucune</td><td>JWT (JSON Web Token)</td></tr>
+      <tr><td><strong>Fonctionnalit&eacute;s</strong></td><td>Pages statiques</td><td>Application compl&egrave;te et fonctionnelle</td></tr>
+      <tr><td><strong>D&eacute;ploiement</strong></td><td>Non pr&eacute;vu</td><td>Render + Vercel (accessible en ligne)</td></tr>
+    </tbody>
+  </table>
+
+  <h3>2.3 Pourquoi cette &eacute;volution ?</h3>
+  <p>Le prototype initial en HTML/CSS/JS avait permis de valider l'ergonomie et les maquettes, mais pr&eacute;sentait des <strong>limites importantes</strong> :</p>
+  <ul>
+    <li><strong>Pas de gestion de donn&eacute;es</strong> : impossible de stocker les utilisateurs, messages ou &eacute;v&eacute;nements de mani&egrave;re persistante</li>
+    <li><strong>Pas d'authentification</strong> : aucun syst&egrave;me de connexion s&eacute;curis&eacute;</li>
+    <li><strong>Code non structur&eacute;</strong> : difficult&eacute; &agrave; maintenir et faire &eacute;voluer le projet</li>
+    <li><strong>Pas de communication en temps r&eacute;el</strong> : messagerie impossible sans serveur</li>
+  </ul>
+  <p>Le passage &agrave; <strong>React + Django</strong> nous a permis de r&eacute;soudre tous ces probl&egrave;mes et de cr&eacute;er une application v&eacute;ritablement fonctionnelle et d&eacute;ployable.</p>
+</div>
+
+<!-- ================================================================ -->
+<!-- 3. OBJECTIFS -->
+<!-- ================================================================ -->
+<div class="page" id="objectifs">
+  <h2 class="section-title">3. Objectifs du Projet</h2>
+
+  <p>L'objectif principal de <strong>MBN Global Education</strong> est de cr&eacute;er une plateforme num&eacute;rique centralisant la vie &eacute;tudiante au sein du groupe MBN, regroupant <strong>13 &eacute;coles</strong> r&eacute;parties sur <strong>6 campus</strong> (Paris-Torcy, Paris-&Eacute;vry, Paris-Noisiel, Lyon, Yaound&eacute;, Campus &agrave; distance).</p>
+
+  <h3>Objectifs fonctionnels</h3>
+  <ul>
+    <li><strong>Connexion s&eacute;curis&eacute;e</strong> des utilisateurs avec identification par &eacute;cole, formation, niveau et campus</li>
+    <li><strong>Gestion de profil</strong> avec photo de profil personnalisable</li>
+    <li><strong>Clubs &eacute;tudiants</strong> : cr&eacute;ation, adh&eacute;sion et gestion de clubs par cat&eacute;gorie</li>
+    <li><strong>&Eacute;v&eacute;nements</strong> : cr&eacute;ation, inscription et suivi des &eacute;v&eacute;nements par campus</li>
+    <li><strong>Messagerie priv&eacute;e</strong> entre utilisateurs, inspir&eacute;e de WhatsApp</li>
+    <li><strong>Todo List</strong> : organisation des t&acirc;ches personnelles avec cat&eacute;gories et priorit&eacute;s</li>
+    <li><strong>Mode sombre</strong> pour le confort visuel</li>
+  </ul>
+
+  <h3>Objectifs techniques</h3>
+  <ul>
+    <li>Construire une application <strong>Full-Stack</strong> avec frontend et backend s&eacute;par&eacute;s communicant via une API REST</li>
+    <li>Utiliser des technologies <strong>professionnelles et modernes</strong> (React, Django, JWT)</li>
+    <li>Assurer la <strong>s&eacute;curit&eacute;</strong> des donn&eacute;es (mots de passe hash&eacute;s, tokens sign&eacute;s, validation des uploads)</li>
+    <li><strong>D&eacute;ployer</strong> l'application en ligne pour qu'elle soit accessible depuis n'importe quel appareil</li>
+  </ul>
+
+  <h3>&Eacute;coles du groupe MBN</h3>
+  <table>
+    <thead><tr><th>N&deg;</th><th>&Eacute;cole</th><th>Domaine</th></tr></thead>
+    <tbody>
+      <tr><td>1</td><td>ESIIA</td><td>Informatique et Intelligence Artificielle</td></tr>
+      <tr><td>2</td><td>EMSP</td><td>Management et Strat&eacute;gie</td></tr>
+      <tr><td>3</td><td>ESMEP</td><td>M&eacute;tiers de l'Entreprise</td></tr>
+      <tr><td>4</td><td>DCG</td><td>Comptabilit&eacute; et Gestion</td></tr>
+      <tr><td>5</td><td>ILMIS</td><td>Logistique et Management</td></tr>
+      <tr><td>6</td><td>ISMOD</td><td>Mode et Design</td></tr>
+      <tr><td>7</td><td>ESETH</td><td>Tourisme et H&ocirc;tellerie</td></tr>
+      <tr><td>8</td><td>ESUV</td><td>Vente et Commerce</td></tr>
+      <tr><td>9</td><td>ESMAS</td><td>Management du Sport</td></tr>
+      <tr><td>10</td><td>ESMOSS</td><td>M&eacute;dico-Social</td></tr>
+      <tr><td>11</td><td>ESEA</td><td>&Eacute;conomie et Administration</td></tr>
+      <tr><td>12</td><td>ESART</td><td>Arts et Culture</td></tr>
+      <tr><td>13</td><td>CESCOM</td><td>Communication</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- ================================================================ -->
+<!-- 4. ARCHITECTURE -->
+<!-- ================================================================ -->
+<div class="page" id="archi">
+  <h2 class="section-title">4. Architecture Technique</h2>
+
+  <h3 id="archi-gen">4.1 Architecture g&eacute;n&eacute;rale</h3>
+  <p>L'application suit une architecture <strong>client-serveur</strong> s&eacute;par&eacute;e en deux parties ind&eacute;pendantes qui communiquent via une <strong>API REST</strong> en &eacute;changeant des donn&eacute;es au format <strong>JSON</strong>.</p>
+
+  <div class="schema-box">
+&#9484;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9488;            &#9484;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9488;
+&#9474;     FRONTEND          &#9474;    HTTP    &#9474;      BACKEND          &#9474;
+&#9474;     React + Vite      &#9474; &lt;-------&gt; &#9474;      Django + DRF      &#9474;
+&#9474;     Port 5173         &#9474;   /api    &#9474;      Port 8000         &#9474;
+&#9474;                       &#9474;            &#9474;                       &#9474;
+&#9474;  - Pages React        &#9474;            &#9474;  - API REST (30+     &#9474;
+&#9474;  - Composants         &#9474;            &#9474;    endpoints)         &#9474;
+&#9474;  - CSS Design System  &#9474;            &#9474;  - Auth JWT           &#9474;
+&#9474;  - React Router       &#9474;            &#9474;  - ORM Django         &#9474;
+&#9492;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9496;            &#9474;         &#9474;              &#9474;
+                                   &#9474;    &#9484;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9516;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9488;  &#9474;
+                                   &#9474;    &#9474;  SQLite /     &#9474;  &#9474;
+                                   &#9474;    &#9474;  PostgreSQL   &#9474;  &#9474;
+                                   &#9474;    &#9492;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9496;  &#9474;
+                                   &#9492;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9496;</div>
+
+  <p><strong>Principe :</strong> Le navigateur de l'utilisateur ex&eacute;cute le code React (frontend). Lorsqu'il a besoin de donn&eacute;es (connexion, messages, clubs, etc.), React envoie une requ&ecirc;te HTTP au backend Django. Celui-ci traite la demande, interagit avec la base de donn&eacute;es, et renvoie une r&eacute;ponse au format JSON.</p>
+
+  <h3 id="archi-stack">4.2 Stack technologique</h3>
+
+  <table>
+    <thead><tr><th>Couche</th><th>Technologie</th><th>Version</th><th>R&ocirc;le</th></tr></thead>
+    <tbody>
+      <tr><td rowspan="5"><strong>Backend</strong></td><td>Python</td><td>3.11+</td><td>Langage de programmation</td></tr>
+      <tr><td>Django</td><td>5.1</td><td>Framework web</td></tr>
+      <tr><td>Django REST Framework</td><td>3.15</td><td>Cr&eacute;ation d'API REST</td></tr>
+      <tr><td>SimpleJWT</td><td>5.3</td><td>Authentification par token</td></tr>
+      <tr><td>Pillow</td><td>10.0</td><td>Traitement d'images</td></tr>
+      <tr><td rowspan="5"><strong>Frontend</strong></td><td>JavaScript (JSX)</td><td>ES2022</td><td>Langage de programmation</td></tr>
+      <tr><td>React</td><td>18.3</td><td>Biblioth&egrave;que UI</td></tr>
+      <tr><td>Vite</td><td>5.4</td><td>Outil de build</td></tr>
+      <tr><td>React Router</td><td>6.26</td><td>Navigation SPA</td></tr>
+      <tr><td>Axios</td><td>1.7</td><td>Client HTTP</td></tr>
+      <tr><td><strong>Base de donn&eacute;es</strong></td><td>SQLite / PostgreSQL</td><td>3 / 16</td><td>Stockage des donn&eacute;es</td></tr>
+      <tr><td rowspan="2"><strong>D&eacute;ploiement</strong></td><td>Render</td><td>&mdash;</td><td>H&eacute;bergement backend</td></tr>
+      <tr><td>Vercel</td><td>&mdash;</td><td>H&eacute;bergement frontend</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- ================================================================ -->
+<!-- 5. BACKEND -->
+<!-- ================================================================ -->
+<div class="page" id="backend">
+  <h2 class="section-title">5. Backend &mdash; Django REST Framework</h2>
+
+  <h3 id="backend-django">5.1 Pourquoi Django ?</h3>
+  <p><strong>Django</strong> est un framework web Python cr&eacute;&eacute; en 2005, utilis&eacute; par des entreprises comme Instagram, Spotify et Mozilla. Nous l'avons choisi pour les raisons suivantes :</p>
+  <ul>
+    <li><strong>ORM int&eacute;gr&eacute;</strong> : permet de manipuler la base de donn&eacute;es avec du code Python au lieu d'&eacute;crire du SQL brut</li>
+    <li><strong>Syst&egrave;me de migrations</strong> : g&egrave;re automatiquement l'&eacute;volution de la structure de la base de donn&eacute;es</li>
+    <li><strong>S&eacute;curit&eacute; int&eacute;gr&eacute;e</strong> : protection contre les injections SQL, les attaques CSRF et le XSS</li>
+    <li><strong>Interface d'administration</strong> : panneau d'administration automatique pour g&eacute;rer les donn&eacute;es</li>
+    <li><strong>Django REST Framework (DRF)</strong> : extension qui transforme Django en API REST compl&egrave;te</li>
+  </ul>
+
+  <p><strong>Django REST Framework</strong> ajoute &agrave; Django la capacit&eacute; de cr&eacute;er des API. Il fournit des <strong>Serializers</strong> (convertisseurs Python &harr; JSON), des <strong>Views</strong> (logique de traitement), et un syst&egrave;me de <strong>Permissions</strong> (contr&ocirc;le d'acc&egrave;s).</p>
+
+  <h3 id="backend-api">5.2 API REST &mdash; Endpoints</h3>
+  <p>Une <strong>API REST</strong> (Representational State Transfer) est une interface qui permet &agrave; deux applications de communiquer via le protocole HTTP. Chaque action correspond &agrave; une m&eacute;thode HTTP :</p>
+
+  <table>
+    <thead><tr><th>M&eacute;thode</th><th>Action</th><th>Exemple</th></tr></thead>
+    <tbody>
+      <tr><td><strong>GET</strong></td><td>Lire des donn&eacute;es</td><td>R&eacute;cup&eacute;rer la liste des clubs</td></tr>
+      <tr><td><strong>POST</strong></td><td>Cr&eacute;er des donn&eacute;es</td><td>Cr&eacute;er un nouveau club</td></tr>
+      <tr><td><strong>PUT</strong></td><td>Modifier des donn&eacute;es</td><td>Modifier son profil</td></tr>
+      <tr><td><strong>DELETE</strong></td><td>Supprimer des donn&eacute;es</td><td>Supprimer un message</td></tr>
+    </tbody>
+  </table>
+
+  <h4>Liste compl&egrave;te des endpoints de l'API</h4>
+  <table>
+    <thead><tr><th>M&eacute;thode</th><th>URL</th><th>Description</th></tr></thead>
+    <tbody>
+      <tr><td>POST</td><td>/api/auth/register/</td><td>Inscription d'un nouvel utilisateur</td></tr>
+      <tr><td>POST</td><td>/api/auth/login/</td><td>Connexion (retourne le token JWT)</td></tr>
+      <tr><td>GET</td><td>/api/auth/me/</td><td>R&eacute;cup&eacute;rer mon profil</td></tr>
+      <tr><td>POST</td><td>/api/auth/refresh/</td><td>Renouveler le token d'acc&egrave;s</td></tr>
+      <tr><td>GET</td><td>/api/users/</td><td>Liste des utilisateurs</td></tr>
+      <tr><td>GET</td><td>/api/users/search/?q=</td><td>Rechercher un utilisateur</td></tr>
+      <tr><td>PUT</td><td>/api/users/{id}/update/</td><td>Modifier un profil</td></tr>
+      <tr><td>POST</td><td>/api/users/upload-photo/</td><td>T&eacute;l&eacute;verser une photo de profil</td></tr>
+      <tr><td>GET</td><td>/api/clubs/</td><td>Liste des clubs</td></tr>
+      <tr><td>POST</td><td>/api/clubs/create/</td><td>Cr&eacute;er un club</td></tr>
+      <tr><td>POST</td><td>/api/clubs/{id}/join/</td><td>Rejoindre un club</td></tr>
+      <tr><td>POST</td><td>/api/clubs/{id}/leave/</td><td>Quitter un club</td></tr>
+      <tr><td>GET</td><td>/api/events/</td><td>Liste des &eacute;v&eacute;nements</td></tr>
+      <tr><td>POST</td><td>/api/events/create/</td><td>Cr&eacute;er un &eacute;v&eacute;nement</td></tr>
+      <tr><td>POST</td><td>/api/events/{id}/participate/</td><td>Participer &agrave; un &eacute;v&eacute;nement</td></tr>
+      <tr><td>GET</td><td>/api/messages/conversations/</td><td>Mes conversations</td></tr>
+      <tr><td>POST</td><td>/api/messages/send/</td><td>Envoyer un message</td></tr>
+      <tr><td>GET</td><td>/api/todos/</td><td>Mes t&acirc;ches</td></tr>
+      <tr><td>POST</td><td>/api/todos/create/</td><td>Cr&eacute;er une t&acirc;che</td></tr>
+      <tr><td>POST</td><td>/api/todos/{id}/toggle/</td><td>Cocher / d&eacute;cocher une t&acirc;che</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- ================================================================ -->
+<!-- 5.3 AUTH JWT -->
+<!-- ================================================================ -->
+<div class="page" id="backend-auth">
+  <h3>5.3 Authentification JWT (JSON Web Token)</h3>
+
+  <p>L'authentification est g&eacute;r&eacute;e par le syst&egrave;me <strong>JWT (JSON Web Token)</strong>. C'est un standard ouvert (RFC 7519) utilis&eacute; par la majorit&eacute; des applications web modernes.</p>
+
+  <h4>Fonctionnement</h4>
+  <div class="schema-box">
+1. L'utilisateur envoie email + mot de passe
+         |
+         v
+2. Le serveur v&eacute;rifie les identifiants dans la base de donn&eacute;es
+         |
+         v
+3. Si correct, le serveur g&eacute;n&egrave;re 2 tokens :
+   +----------------------------------------------+
+   | ACCESS TOKEN   (valide 7 jours)              |
+   | Envoy&eacute; &agrave; chaque requ&ecirc;te dans le header HTTP   |
+   | "Authorization: Bearer eyJhbGciOi..."        |
+   +----------------------------------------------+
+   | REFRESH TOKEN  (valide 30 jours)             |
+   | Permet de renouveler l'access token expir&eacute;   |
+   +----------------------------------------------+
+         |
+         v
+4. Le frontend stocke ces tokens dans localStorage
+         |
+         v
+5. &Agrave; chaque requ&ecirc;te, Axios ajoute automatiquement
+   le token dans les headers HTTP
+         |
+         v
+6. Le backend v&eacute;rifie le token et identifie l'utilisateur</div>
+
+  <h4>Pourquoi JWT et pas les sessions classiques ?</h4>
+  <ul>
+    <li><strong>Stateless</strong> : le serveur ne stocke rien en m&eacute;moire. Toutes les informations sont dans le token lui-m&ecirc;me.</li>
+    <li><strong>Adapt&eacute; aux API REST</strong> : pas besoin de cookies, ce qui fonctionne mieux avec les applications mobiles et les SPA (Single Page Application).</li>
+    <li><strong>S&eacute;curis&eacute;</strong> : le token est sign&eacute; num&eacute;riquement avec une cl&eacute; secr&egrave;te. Toute modification le rend invalide.</li>
+    <li><strong>Scalable</strong> : plusieurs serveurs peuvent v&eacute;rifier le m&ecirc;me token sans partager de session.</li>
+  </ul>
+
+  <h4>Exemple concret : Connexion</h4>
+  <div class="code-block"><span class="comment">// Requ&ecirc;te envoy&eacute;e par le frontend</span>
+<span class="keyword">POST</span> /api/auth/login/
+<span class="keyword">Body</span> : { <span class="string">"email"</span>: <span class="string">"mboussi@mbn.edu"</span>, <span class="string">"password"</span>: <span class="string">"password123"</span> }
+
+<span class="comment">// R&eacute;ponse du backend</span>
+{
+  <span class="string">"success"</span>: <span class="keyword">true</span>,
+  <span class="string">"token"</span>: <span class="string">"eyJhbGciOiJIUzI1NiIs..."</span>,
+  <span class="string">"user"</span>: {
+    <span class="string">"id"</span>: 1,
+    <span class="string">"nom"</span>: <span class="string">"MBOUSSI"</span>,
+    <span class="string">"prenom"</span>: <span class="string">"Marc"</span>,
+    <span class="string">"ecole"</span>: <span class="string">"ESIIA"</span>,
+    <span class="string">"role"</span>: <span class="string">"directeur"</span>
+  }
+}</div>
+</div>
+
+<!-- ================================================================ -->
+<!-- 6. BASE DE DONNEES -->
+<!-- ================================================================ -->
+<div class="page" id="bdd">
+  <h2 class="section-title">6. Base de Donn&eacute;es</h2>
+
+  <h3 id="bdd-modeles">6.1 Mod&egrave;les de donn&eacute;es</h3>
+
+  <p>Django utilise un <strong>ORM</strong> (Object-Relational Mapping) : on &eacute;crit des classes Python et Django les transforme automatiquement en tables SQL. La base de donn&eacute;es utilise <strong>SQLite</strong> en d&eacute;veloppement (un simple fichier) et <strong>PostgreSQL</strong> en production (serveur robuste).</p>
+
+  <h4>Table USER &mdash; Utilisateurs</h4>
+  <table>
+    <thead><tr><th>Champ</th><th>Type</th><th>Description</th></tr></thead>
+    <tbody>
+      <tr><td>id</td><td>Integer (auto)</td><td>Identifiant unique</td></tr>
+      <tr><td>email</td><td>Email (unique)</td><td>Adresse email, sert de login</td></tr>
+      <tr><td>password</td><td>String (hash&eacute;)</td><td>Mot de passe crypt&eacute; (PBKDF2 + SHA256)</td></tr>
+      <tr><td>nom</td><td>String (100)</td><td>Nom de famille</td></tr>
+      <tr><td>prenom</td><td>String (100)</td><td>Pr&eacute;nom</td></tr>
+      <tr><td>ecole</td><td>String (100)</td><td>ESIIA, EMSP, DCG, etc.</td></tr>
+      <tr><td>formation</td><td>String (100)</td><td>D&eacute;veloppement Web, IA, Marketing, etc.</td></tr>
+      <tr><td>niveau</td><td>String (50)</td><td>BTS 1, BTS 2, Bachelor 1-3, Mast&egrave;re 1-2</td></tr>
+      <tr><td>campus</td><td>String (100)</td><td>Lyon, Paris-Torcy, Yaound&eacute;, etc.</td></tr>
+      <tr><td>role</td><td>Choice</td><td>&eacute;tudiant / professeur / admin / directeur</td></tr>
+      <tr><td>photo_profil</td><td>URL (500)</td><td>Lien vers la photo de profil</td></tr>
+      <tr><td>created_at</td><td>DateTime</td><td>Date d'inscription</td></tr>
+    </tbody>
+  </table>
+
+  <h4>Table CLUB</h4>
+  <table>
+    <thead><tr><th>Champ</th><th>Type</th><th>Description</th></tr></thead>
+    <tbody>
+      <tr><td>id</td><td>Integer (auto)</td><td>Identifiant unique</td></tr>
+      <tr><td>nom</td><td>String (200)</td><td>Nom du club</td></tr>
+      <tr><td>description</td><td>Text</td><td>Description du club</td></tr>
+      <tr><td>type</td><td>Choice</td><td>cr&eacute;atif / &eacute;v&eacute;nementiel / professionnel / sport / autre</td></tr>
+      <tr><td>created_by</td><td>FK &rarr; User</td><td>Cr&eacute;ateur du club</td></tr>
+      <tr><td>members</td><td>ManyToMany</td><td>Membres (via ClubMember)</td></tr>
+    </tbody>
+  </table>
+
+  <h4>Table EVENT &mdash; &Eacute;v&eacute;nements</h4>
+  <table>
+    <thead><tr><th>Champ</th><th>Type</th><th>Description</th></tr></thead>
+    <tbody>
+      <tr><td>id</td><td>Integer (auto)</td><td>Identifiant unique</td></tr>
+      <tr><td>titre</td><td>String (200)</td><td>Nom de l'&eacute;v&eacute;nement</td></tr>
+      <tr><td>description</td><td>Text</td><td>D&eacute;tails</td></tr>
+      <tr><td>date_event</td><td>DateTime</td><td>Date et heure de l'&eacute;v&eacute;nement</td></tr>
+      <tr><td>lieu</td><td>String (200)</td><td>Lieu</td></tr>
+      <tr><td>campus</td><td>String (100)</td><td>Campus concern&eacute;</td></tr>
+      <tr><td>created_by</td><td>FK &rarr; User</td><td>Organisateur</td></tr>
+      <tr><td>participants</td><td>ManyToMany</td><td>Participants (via EventParticipant)</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- ================================================================ -->
+<!-- 6 suite : MESSAGE + TODO + RELATIONS -->
+<!-- ================================================================ -->
+<div class="page">
+  <h4>Table MESSAGE</h4>
+  <table>
+    <thead><tr><th>Champ</th><th>Type</th><th>Description</th></tr></thead>
+    <tbody>
+      <tr><td>id</td><td>Integer (auto)</td><td>Identifiant unique</td></tr>
+      <tr><td>sender</td><td>FK &rarr; User</td><td>Exp&eacute;diteur</td></tr>
+      <tr><td>receiver</td><td>FK &rarr; User</td><td>Destinataire</td></tr>
+      <tr><td>content</td><td>Text</td><td>Contenu du message</td></tr>
+      <tr><td>message_type</td><td>Choice</td><td>text / voice / file</td></tr>
+      <tr><td>file_name</td><td>String (255)</td><td>Nom du fichier joint</td></tr>
+      <tr><td>file_size</td><td>Integer</td><td>Taille en octets</td></tr>
+      <tr><td>voice_duration</td><td>Float</td><td>Dur&eacute;e audio en secondes</td></tr>
+      <tr><td>is_read</td><td>Boolean</td><td>Lu ou non lu</td></tr>
+      <tr><td>created_at</td><td>DateTime</td><td>Date d'envoi</td></tr>
+    </tbody>
+  </table>
+
+  <h4>Table TODO &mdash; T&acirc;ches</h4>
+  <table>
+    <thead><tr><th>Champ</th><th>Type</th><th>Description</th></tr></thead>
+    <tbody>
+      <tr><td>id</td><td>Integer (auto)</td><td>Identifiant unique</td></tr>
+      <tr><td>user</td><td>FK &rarr; User</td><td>Propri&eacute;taire de la t&acirc;che</td></tr>
+      <tr><td>titre</td><td>String (300)</td><td>Titre de la t&acirc;che</td></tr>
+      <tr><td>description</td><td>Text</td><td>D&eacute;tails</td></tr>
+      <tr><td>categorie</td><td>Choice</td><td>cours / devoir / examen / projet / stage / personnel / autre</td></tr>
+      <tr><td>priorite</td><td>Choice</td><td>basse / moyenne / haute / urgente</td></tr>
+      <tr><td>completed</td><td>Boolean</td><td>Termin&eacute;e ou non</td></tr>
+      <tr><td>date_echeance</td><td>DateTime</td><td>Date limite</td></tr>
+    </tbody>
+  </table>
+
+  <h3 id="bdd-relations">6.2 Relations entre les tables</h3>
+  <div class="schema-box">
+USER ──1────N──&gt; MESSAGE      (un utilisateur envoie plusieurs messages)
+USER ──1────N──&gt; TODO         (un utilisateur a plusieurs t&acirc;ches)
+USER ──N────N──&gt; CLUB         (via CLUBMEMBER : many-to-many)
+USER ──N────N──&gt; EVENT        (via EVENTPARTICIPANT : many-to-many)
+USER ──1────N──&gt; CLUB         (created_by : un utilisateur cr&eacute;e plusieurs clubs)
+USER ──1────N──&gt; EVENT        (created_by : un utilisateur cr&eacute;e plusieurs &eacute;v&eacute;nements)</div>
+
+  <div class="info-box">
+    <strong>Cl&eacute; &eacute;trang&egrave;re (FK) :</strong> une r&eacute;f&eacute;rence vers une autre table. Par exemple, <code>sender = FK &rarr; User</code> signifie que chaque message est li&eacute; &agrave; un utilisateur exp&eacute;diteur.<br>
+    <strong>ManyToMany :</strong> une relation o&ugrave; un enregistrement peut &ecirc;tre li&eacute; &agrave; plusieurs enregistrements de l'autre table (et vice-versa). Exemple : un utilisateur peut &ecirc;tre membre de plusieurs clubs, et un club peut avoir plusieurs membres.
+  </div>
+</div>
+
+<!-- ================================================================ -->
+<!-- 7. FRONTEND -->
+<!-- ================================================================ -->
+<div class="page" id="frontend">
+  <h2 class="section-title">7. Frontend &mdash; React</h2>
+
+  <h3 id="frontend-react">7.1 Pourquoi React ?</h3>
+  <p><strong>React</strong> est une biblioth&egrave;que JavaScript cr&eacute;&eacute;e par <strong>Facebook (Meta)</strong> en 2013, utilis&eacute;e par Facebook, Instagram, Netflix, Airbnb et des milliers d'autres entreprises. Nous l'avons choisi pour les raisons suivantes :</p>
+  <ul>
+    <li><strong>Composants r&eacute;utilisables</strong> : l'interface est d&eacute;coup&eacute;e en briques ind&eacute;pendantes (Navbar, Login, Messages, etc.)</li>
+    <li><strong>Virtual DOM</strong> : React ne modifie que les parties de la page qui changent, ce qui rend l'application tr&egrave;s rapide</li>
+    <li><strong>Vaste &eacute;cosyst&egrave;me</strong> : des milliers de biblioth&egrave;ques compatibles (Router, Axios, etc.)</li>
+    <li><strong>Comp&eacute;tence tr&egrave;s demand&eacute;e</strong> sur le march&eacute; du travail</li>
+  </ul>
+
+  <p><strong>Vite</strong> est l'outil de build qui compile notre code React. Il offre un d&eacute;marrage instantan&eacute; et un rechargement automatique lors du d&eacute;veloppement (Hot Module Replacement).</p>
+
+  <h3 id="frontend-pages">7.2 Structure des pages</h3>
+  <div class="schema-box">
+App.jsx (Router principal)
+|
++-- SplashScreen.jsx ........... Animation d'accueil (&agrave; la 1&egrave;re visite)
+|
++-- /  ......................... Landing.jsx    (Page d'accueil publique)
++-- /connexion ................. Login.jsx      (Formulaire de connexion)
++-- /inscription ............... Register.jsx   (Formulaire d'inscription)
+|
++-- Layout.jsx (Navbar + contenu prot&eacute;g&eacute;)
+    +-- /accueil ............... Dashboard.jsx  (Profils, clubs, &eacute;v&eacute;nements)
+    +-- /clubs ................. Clubs.jsx      (Page d&eacute;di&eacute;e clubs)
+    +-- /profil ................ Profile.jsx    (Mon profil + upload photo)
+    +-- /messages .............. Messages.jsx   (Messagerie style WhatsApp)
+    +-- /todos ................. Todos.jsx      (Gestion des t&acirc;ches)</div>
+
+  <h3 id="frontend-concepts">7.3 Concepts React utilis&eacute;s</h3>
+  <table>
+    <thead><tr><th>Concept</th><th>Explication</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Composants</strong></td><td>Chaque page est une fonction JavaScript qui retourne du JSX (un m&eacute;lange de HTML et JavaScript)</td></tr>
+      <tr><td><strong>useState</strong></td><td>Hook pour g&eacute;rer l'&eacute;tat local d'un composant (formulaires, chargement, erreurs)</td></tr>
+      <tr><td><strong>useEffect</strong></td><td>Hook pour ex&eacute;cuter du code au montage du composant (charger les donn&eacute;es depuis l'API)</td></tr>
+      <tr><td><strong>useContext</strong></td><td>Hook pour acc&eacute;der aux donn&eacute;es globales (utilisateur connect&eacute;, th&egrave;me sombre/clair)</td></tr>
+      <tr><td><strong>React Router</strong></td><td>Navigation entre les pages sans rechargement du navigateur (SPA)</td></tr>
+      <tr><td><strong>Axios</strong></td><td>Client HTTP qui envoie les requ&ecirc;tes au backend et ajoute automatiquement le token JWT</td></tr>
+      <tr><td><strong>Context API</strong></td><td>Syst&egrave;me de gestion d'&eacute;tat global : AuthContext (authentification) et ThemeContext (th&egrave;me)</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- ================================================================ -->
+<!-- 8. FONCTIONNALITES -->
+<!-- ================================================================ -->
+<div class="page" id="fonctionnalites">
+  <h2 class="section-title">8. Fonctionnalit&eacute;s de l'Application</h2>
+
+  <h3 id="func-auth">8.1 Inscription et Connexion</h3>
+  <p>L'inscription propose des <strong>listes d&eacute;roulantes</strong> pour s&eacute;lectionner :</p>
+  <ul>
+    <li>L'<strong>&eacute;cole</strong> parmi les 13 &eacute;coles du groupe MBN</li>
+    <li>La <strong>formation</strong> (dynamique : change selon l'&eacute;cole s&eacute;lectionn&eacute;e)</li>
+    <li>Le <strong>niveau</strong> : BTS 1&egrave;re ann&eacute;e, BTS 2&egrave;me ann&eacute;e, Bachelor 1/2/3, Mast&egrave;re 1/2</li>
+    <li>Le <strong>campus</strong> : Paris-Torcy, Paris-&Eacute;vry, Paris-Noisiel, Lyon, Yaound&eacute;, Campus &agrave; distance</li>
+  </ul>
+  <p>Un <strong>splash screen anim&eacute;</strong> accueille l'utilisateur lors de sa premi&egrave;re visite avec le logo MBN et une animation de particules.</p>
+
+  <h3 id="func-profil">8.2 Profil Utilisateur</h3>
+  <ul>
+    <li>Affichage des informations personnelles (&eacute;cole, formation, niveau, campus, r&ocirc;le)</li>
+    <li><strong>Upload de photo de profil</strong> style Instagram : clic sur l'avatar &rarr; s&eacute;lection d'image &rarr; pr&eacute;visualisation &rarr; upload automatique</li>
+    <li>Modification des informations via un formulaire modal</li>
+    <li>Affichage des clubs rejoints et des &eacute;v&eacute;nements</li>
+  </ul>
+
+  <h3 id="func-clubs">8.3 Clubs</h3>
+  <ul>
+    <li><strong>Cr&eacute;er</strong> un club avec nom, description et cat&eacute;gorie (cr&eacute;atif, sport, professionnel, &eacute;v&eacute;nementiel, autre)</li>
+    <li><strong>Rejoindre</strong> ou <strong>quitter</strong> un club en un clic</li>
+    <li>Voir la <strong>liste des membres</strong> de chaque club</li>
+    <li>Acc&eacute;der &agrave; <strong>mes clubs</strong> depuis le tableau de bord</li>
+  </ul>
+
+  <h3 id="func-events">8.4 &Eacute;v&eacute;nements</h3>
+  <ul>
+    <li><strong>Cr&eacute;er</strong> un &eacute;v&eacute;nement avec titre, description, date, lieu et campus</li>
+    <li><strong>S'inscrire</strong> ou <strong>se d&eacute;sinscrire</strong> d'un &eacute;v&eacute;nement</li>
+    <li><strong>Modifier</strong> ou <strong>supprimer</strong> (r&eacute;serv&eacute; au cr&eacute;ateur)</li>
+    <li>Filtrage des <strong>&eacute;v&eacute;nements &agrave; venir</strong></li>
+  </ul>
+
+  <h3 id="func-msg">8.5 Messagerie (style WhatsApp)</h3>
+  <p>La messagerie offre une exp&eacute;rience similaire &agrave; WhatsApp :</p>
+  <ul>
+    <li>Liste des <strong>conversations</strong> avec aper&ccedil;u du dernier message</li>
+    <li>Envoi de <strong>messages texte</strong>, <strong>messages vocaux</strong> et <strong>fichiers</strong></li>
+    <li><strong>Indicateur de lecture</strong> : coches bleues (&#10003;&#10003;) quand le message est lu</li>
+    <li><strong>Badge de messages non lus</strong> dans la navbar</li>
+    <li><strong>Recherche d'utilisateurs</strong> pour d&eacute;marrer une nouvelle conversation</li>
+  </ul>
+</div>
+
+<div class="page">
+  <h3 id="func-todo">8.6 Todo List &mdash; Gestion des T&acirc;ches</h3>
+  <p>Un outil complet de gestion de t&acirc;ches personnelles :</p>
+  <ul>
+    <li>Cr&eacute;ation avec <strong>titre</strong>, <strong>description</strong>, <strong>cat&eacute;gorie</strong>, <strong>priorit&eacute;</strong> et <strong>date limite</strong></li>
+    <li>7 cat&eacute;gories : Cours, Devoir, Examen, Projet, Stage, Personnel, Autre</li>
+    <li>4 niveaux de priorit&eacute; : Basse, Moyenne, Haute, Urgente</li>
+    <li><strong>Barre de progression</strong> affichant le pourcentage de t&acirc;ches termin&eacute;es</li>
+    <li><strong>Filtrage</strong> par cat&eacute;gorie et par statut (toutes / en cours / termin&eacute;es)</li>
+    <li>Cocher / d&eacute;cocher en un clic</li>
+  </ul>
+
+  <h3 id="func-theme">8.7 Mode Sombre / Clair</h3>
+  <ul>
+    <li>Basculement en un clic via un bouton dans la navbar</li>
+    <li><strong>D&eacute;tection automatique</strong> de la pr&eacute;f&eacute;rence syst&egrave;me de l'utilisateur</li>
+    <li>Pr&eacute;f&eacute;rence <strong>sauvegard&eacute;e</strong> dans le navigateur (localStorage)</li>
+    <li>Utilisation de <strong>CSS Variables</strong> : toutes les couleurs de l'application changent instantan&eacute;ment</li>
+  </ul>
+</div>
+
+<!-- ================================================================ -->
+<!-- 9. DESIGN -->
+<!-- ================================================================ -->
+<div class="page" id="design">
+  <h2 class="section-title">9. Design et Interface</h2>
+
+  <h3>9.1 Identit&eacute; visuelle</h3>
+  <p>Le design de l'application s'inspire du site officiel <strong>mbnglobal.fr</strong>. La couleur principale est le <span style="color:#046bd2; font-weight:bold;">bleu MBN (#046bd2)</span>, d&eacute;clin&eacute;e dans toute l'interface.</p>
+
+  <h3>9.2 Syst&egrave;me de Design (CSS Variables)</h3>
+  <p>L'ensemble de l'interface utilise des <strong>Variables CSS</strong> pour g&eacute;rer les couleurs. Ce syst&egrave;me permet de changer de th&egrave;me instantan&eacute;ment :</p>
+
+  <div class="code-block"><span class="comment">/* Mode clair */</span>
+<span class="keyword">:root</span> {
+  <span class="func">--accent</span>: <span class="string">#046bd2</span>;         <span class="comment">/* Bleu MBN */</span>
+  <span class="func">--bg-primary</span>: <span class="string">#F0F5FA</span>;     <span class="comment">/* Fond clair */</span>
+  <span class="func">--text-primary</span>: <span class="string">#1e293b</span>;   <span class="comment">/* Texte fonc&eacute; */</span>
+}
+
+<span class="comment">/* Mode sombre */</span>
+<span class="keyword">[data-theme="dark"]</span> {
+  <span class="func">--accent</span>: <span class="string">#3b8df5</span>;         <span class="comment">/* Bleu plus clair */</span>
+  <span class="func">--bg-primary</span>: <span class="string">#0b1120</span>;     <span class="comment">/* Fond sombre */</span>
+  <span class="func">--text-primary</span>: <span class="string">#f1f5f9</span>;   <span class="comment">/* Texte clair */</span>
+}</div>
+
+  <h3>9.3 Effets visuels</h3>
+  <table>
+    <thead><tr><th>Effet</th><th>Description</th><th>Utilisation</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Glassmorphism</strong></td><td>Effet de verre flou (backdrop-filter: blur)</td><td>Cartes, formulaires, navbar</td></tr>
+      <tr><td><strong>Animations CSS</strong></td><td>Transitions fluides et keyframes</td><td>Splash screen, boutons, navigation</td></tr>
+      <tr><td><strong>Particules flottantes</strong></td><td>Cercles anim&eacute;s en arri&egrave;re-plan</td><td>Splash screen, page d'accueil</td></tr>
+      <tr><td><strong>Responsive Design</strong></td><td>Adaptation mobile, tablette, desktop</td><td>Toute l'application</td></tr>
+      <tr><td><strong>Gradient</strong></td><td>D&eacute;grad&eacute;s de couleurs</td><td>Boutons, arri&egrave;re-plans</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- ================================================================ -->
+<!-- 10. SECURITE -->
+<!-- ================================================================ -->
+<div class="page" id="securite">
+  <h2 class="section-title">10. S&eacute;curit&eacute;</h2>
+
+  <p>La s&eacute;curit&eacute; est un aspect fondamental de l'application. Voici les mesures mises en place :</p>
+
+  <table>
+    <thead><tr><th>Mesure</th><th>D&eacute;tail</th></tr></thead>
+    <tbody>
+      <tr>
+        <td><strong>Mots de passe hash&eacute;s</strong></td>
+        <td>Django utilise l'algorithme <strong>PBKDF2 + SHA256</strong> avec salage al&eacute;atoire. Les mots de passe ne sont jamais stock&eacute;s en clair dans la base de donn&eacute;es. M&ecirc;me si la base est compromise, les mots de passe restent illisibles.</td>
+      </tr>
+      <tr>
+        <td><strong>Tokens JWT sign&eacute;s</strong></td>
+        <td>Les tokens sont sign&eacute;s num&eacute;riquement avec une cl&eacute; secr&egrave;te (HMAC-SHA256). Toute tentative de modification rend le token invalide.</td>
+      </tr>
+      <tr>
+        <td><strong>CORS (Cross-Origin)</strong></td>
+        <td>Seul le frontend autoris&eacute; peut communiquer avec le backend. Les requ&ecirc;tes provenant d'autres sites sont bloqu&eacute;es.</td>
+      </tr>
+      <tr>
+        <td><strong>Validation des uploads</strong></td>
+        <td>Les photos de profil sont valid&eacute;es : type MIME (JPEG, PNG, GIF, WebP uniquement) et taille maximale de 5 Mo.</td>
+      </tr>
+      <tr>
+        <td><strong>Permissions</strong></td>
+        <td>Un utilisateur ne peut modifier ou supprimer que ses propres donn&eacute;es. Les endpoints sont prot&eacute;g&eacute;s par des v&eacute;rifications d'identit&eacute;.</td>
+      </tr>
+      <tr>
+        <td><strong>Expiration des tokens</strong></td>
+        <td>L'access token expire apr&egrave;s 7 jours, le refresh token apr&egrave;s 30 jours. Un utilisateur inactif est automatiquement d&eacute;connect&eacute;.</td>
+      </tr>
+      <tr>
+        <td><strong>Protection CSRF</strong></td>
+        <td>Django prot&egrave;ge nativement contre les attaques Cross-Site Request Forgery.</td>
+      </tr>
+      <tr>
+        <td><strong>Protection injection SQL</strong></td>
+        <td>L'ORM de Django param&egrave;tre automatiquement les requ&ecirc;tes SQL, emp&ecirc;chant toute injection.</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- ================================================================ -->
+<!-- 11. DEPLOIEMENT -->
+<!-- ================================================================ -->
+<div class="page" id="deploiement">
+  <h2 class="section-title">11. D&eacute;ploiement</h2>
+
+  <p>L'application est configur&eacute;e pour &ecirc;tre d&eacute;ploy&eacute;e en ligne gratuitement, permettant &agrave; tous les &eacute;tudiants et enseignants d'y acc&eacute;der depuis n'importe quel appareil.</p>
+
+  <h3>Architecture de d&eacute;ploiement</h3>
+  <div class="schema-box">
+   Utilisateur                    Internet
+  (T&eacute;l&eacute;phone / PC)
+       |
+       v
++------------------+        +------------------+        +------------------+
+|    VERCEL         |  HTTP  |    RENDER         |        |   PostgreSQL     |
+|    Frontend       | -----> |    Backend         | -----> |   Base de        |
+|    React + Vite   |  /api  |    Django + DRF    |        |   donn&eacute;es        |
+|    (gratuit)      |        |    (gratuit)       |        |   (Render)       |
++------------------+        +------------------+        +------------------+</div>
+
+  <h3>Services utilis&eacute;s</h3>
+  <table>
+    <thead><tr><th>Service</th><th>R&ocirc;le</th><th>Co&ucirc;t</th></tr></thead>
+    <tbody>
+      <tr><td><strong>GitHub</strong></td><td>H&eacute;bergement du code source</td><td>Gratuit</td></tr>
+      <tr><td><strong>Render</strong></td><td>H&eacute;bergement du backend Django + base PostgreSQL</td><td>Gratuit</td></tr>
+      <tr><td><strong>Vercel</strong></td><td>H&eacute;bergement du frontend React</td><td>Gratuit</td></tr>
+    </tbody>
+  </table>
+
+  <h3>Outils de production</h3>
+  <table>
+    <thead><tr><th>Outil</th><th>R&ocirc;le</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Gunicorn</strong></td><td>Serveur HTTP Python pour la production (remplace le serveur de d&eacute;veloppement Django)</td></tr>
+      <tr><td><strong>WhiteNoise</strong></td><td>Sert les fichiers statiques directement depuis Django, sans avoir besoin d'un serveur Nginx</td></tr>
+      <tr><td><strong>dj-database-url</strong></td><td>Parse automatiquement l'URL de connexion PostgreSQL fournie par Render</td></tr>
+      <tr><td><strong>psycopg2</strong></td><td>Driver Python pour communiquer avec PostgreSQL</td></tr>
+    </tbody>
+  </table>
+
+  <div class="info-box">
+    <strong>Note :</strong> Le serveur Render gratuit se met en veille apr&egrave;s 15 minutes d'inactivit&eacute;. La premi&egrave;re requ&ecirc;te apr&egrave;s la veille prend environ 30 secondes. Vercel n'a pas cette limitation.
+  </div>
+</div>
+
+<!-- ================================================================ -->
+<!-- 12. CONCLUSION -->
+<!-- ================================================================ -->
+<div class="page" id="conclusion">
+  <h2 class="section-title">12. Conclusion</h2>
+
+  <p>Le projet <strong>MBN Global Education</strong> a connu une &eacute;volution significative depuis le premier rapport. Partant d'un simple prototype en HTML/CSS/JavaScript, nous avons d&eacute;velopp&eacute; une <strong>application web compl&egrave;te et fonctionnelle</strong> utilisant des technologies professionnelles.</p>
+
+  <h3>Ce qui a &eacute;t&eacute; accompli</h3>
+  <ul>
+    <li>Un <strong>backend robuste</strong> avec Django REST Framework, proposant plus de 30 endpoints d'API</li>
+    <li>Un <strong>frontend moderne</strong> avec React, offrant une exp&eacute;rience utilisateur fluide et responsive</li>
+    <li>Un <strong>syst&egrave;me d'authentification s&eacute;curis&eacute;</strong> par JWT</li>
+    <li>Une <strong>messagerie en temps r&eacute;el</strong> inspir&eacute;e de WhatsApp</li>
+    <li>Un syst&egrave;me de <strong>clubs et d'&eacute;v&eacute;nements</strong> pour animer la vie &eacute;tudiante</li>
+    <li>Une <strong>todo list compl&egrave;te</strong> pour l'organisation personnelle</li>
+    <li>Un <strong>design professionnel</strong> avec mode sombre, animations et identit&eacute; visuelle MBN</li>
+    <li>Une architecture pr&ecirc;te pour le <strong>d&eacute;ploiement en production</strong></li>
+  </ul>
+
+  <h3>Comp&eacute;tences acquises</h3>
+  <p>Ce projet nous a permis de d&eacute;velopper des comp&eacute;tences concr&egrave;tes en :</p>
+  <ul>
+    <li><strong>D&eacute;veloppement Full-Stack</strong> : ma&icirc;trise du frontend (React) et du backend (Django)</li>
+    <li><strong>Conception d'API REST</strong> : architecture, endpoints, s&eacute;rialisation JSON</li>
+    <li><strong>Gestion de base de donn&eacute;es</strong> : mod&eacute;lisation, relations, migrations</li>
+    <li><strong>S&eacute;curit&eacute; web</strong> : authentification, hashage, CORS, validation</li>
+    <li><strong>D&eacute;ploiement cloud</strong> : mise en production sur des services d'h&eacute;bergement modernes</li>
+    <li><strong>Gestion de projet</strong> : planification, it&eacute;rations, documentation</li>
+  </ul>
+
+  <h3>Perspectives d'am&eacute;lioration</h3>
+  <p>Pour aller plus loin, le projet pourrait &eacute;voluer vers :</p>
+  <ul>
+    <li><strong>Notifications push</strong> en temps r&eacute;el (WebSockets)</li>
+    <li><strong>Application mobile</strong> native avec React Native</li>
+    <li><strong>Forum de discussion</strong> par &eacute;cole ou par formation</li>
+    <li><strong>Partage de supports de cours</strong> entre professeurs et &eacute;tudiants</li>
+    <li><strong>Syst&egrave;me de notifications</strong> par email</li>
+  </ul>
+
+  <div class="info-box" style="margin-top: 30px;">
+    <strong>Code source :</strong> <a href="https://github.com/RudyMTK-0550/MBN-Global-Education">github.com/RudyMTK-0550/MBN-Global-Education</a>
+  </div>
+
+  <div class="page-footer">
+    MBN Global Education &mdash; Rapport Final &mdash; &Eacute;quipe MBN &mdash; 2025/2026
+  </div>
+</div>
+
+</body>
+</html>
