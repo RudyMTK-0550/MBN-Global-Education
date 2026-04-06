@@ -23,7 +23,7 @@ def seed():
 
     # Create users
     users_data = [
-        {'email': 'mboussi@mbn.edu', 'nom': 'MBOUSSI', 'prenom': 'Marc', 'ecole': 'ESIIA',
+        {'email': 'mboussi@mbn.edu', 'nom': 'MBOUSSI', 'prenom': 'René', 'ecole': 'ESIIA',
          'formation': 'Direction', 'campus': 'Lyon', 'role': 'directeur',
          'photo_profil': 'https://i.pinimg.com/736x/0a/19/7e/0a197ef908d97424b1e18b9b52552eb5.jpg'},
         {'email': 'ketsia.c@mbn.edu', 'nom': 'CHOUTEAU', 'prenom': 'Ketsia', 'ecole': 'ESIIA',
